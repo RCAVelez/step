@@ -1,65 +1,67 @@
-#content {
-  margin-left: auto;
-  margin-right: auto;
-  width: 650px;
-}
-
-/* Add a black background color to the top navigation */
-.menuBarClass {
-  background-color: #FFFFFF;
-  overflow: hidden;
-  margin-right: 2vw;
-  margin-left: 2vw;
-  padding-bottom: 2vw;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  
-}
-
-.menuBarClass .menu-top{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.menuBarClass .menu-bottom{
-    
-}
-
-
-/* Style the links inside the navigation bar */
-.menuBarClass .name{
-  color: 	#000000;
-  text-decoration: none;
-  font-size: calc(14px + (30 - 14) * ((100vw - 300px) / (1600 - 300)));
-  line-height: calc(1.3em + (1.5 - 1.2) * ((100vw - 300px)/(1600 - 300)));
-  align-items: center;
-  justify-content: center;
+body {
+  font-family: Arial, sans-serif;
+  padding: 4px;
   text-align: center;
 }
 
+h1 {
+  text-align: center;
+  font-weight: normal;
+}
 
-.menuBarClass a{
-  color: 	#000000;
-  text-decoration: none;
+nav {
+  background: white;
+  width: 100%;
+  margin-bottom: 20px;
+  position: fixed;
+  top: 0;
+  padding-top: 1vw;
+  padding-bottom: 1vw;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  list-style: none;
+  text-align: center;
   font-size: calc(14px + (26 - 14) * ((100vw - 300px) / (1600 - 300)));
   line-height: calc(1.3em + (1.5 - 1.2) * ((100vw - 300px)/(1600 - 300)));
-  margin: 0 auto;
 }
 
-/* Change the color of links on hover */
-.menuBarClass a:hover {
-   text-decoration: underline;
+nav ul li a {
+  display: block;
+  text-decoration: none;
+  color: black;
+  padding: 10px 0;
+  
 }
 
-/* Hide the link that should open and close the topnav on small screens */
-.menuBarClass .icon {
-  display: none;
+nav {
+  display: table;
+  table-layout: fixed;
 }
 
-.menuBarClass #content {
-  padding-top: 60px;
+ul {
+  display: flex;
+  flex-direction: row;
 }
-#content {
-  padding: 16px;
+
+ul li {
+    flex-grow: 1;
+}
+
+@media (max-width: 430px) {
+  ul {
+    display: block;
+  }
+  nav {
+    font-size: .8em;
+  }
+  nav ul li {
+    display: block;
+  }
+
 }
