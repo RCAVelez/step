@@ -44,12 +44,53 @@
     font-size: 19px;
   }
 
-  img
+  .work-container
+  {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-style:solid;
+    width: 100%;
+  }
+
+  .jobs-container
+  {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .jobs-container .work
+  {
+    margin-left: auto;
+    margin-right:auto;
+  }
+
+  .work img
+  {
+    min-width: 200px;
+    min-height: 300px;
+    max-width: 500px;
+  }
+
+  .projects-container
+  {
+    display:flex;
+    justify-content: space-around;
+  }
+
+  .projects-container div
+  {
+      border-style: solid;
+      width: 30%;
+  }
+
+  .about-container img
   {
     width: 100%;
     height: auto;
+    min-width: 200px;
     min-height: 300px;
-    min-width: 300px;
+    max-width: 500px;
   }
 
   .footer-container
