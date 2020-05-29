@@ -141,6 +141,11 @@
     margin-left: 100px;
   }
 
+  .form-message
+  {
+    visibility: hidden;
+  }
+
   input
   {
     height:30px;

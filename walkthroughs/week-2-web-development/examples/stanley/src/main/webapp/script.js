@@ -15,7 +15,8 @@
 $(document).ready(function(){
     $('a[href="#home"]').click(function() {
       console.log("Clicked")
-       $('html,body').animate({ scrollTop: 0},
+       $('html,body').animate({
+           scrollTop: 0},
           2000);
     });
 
@@ -36,5 +37,9 @@ $(document).ready(function(){
            scrollTop: $(".footer-container").offset().top},
           2000);
     });
-});
 
+    $('button').click(function() {
+      $(".form-message").css("visibility","visible")
+    });
+
+});
