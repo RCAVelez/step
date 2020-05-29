@@ -10,6 +10,8 @@
     max-width: 1000px;
     margin-right: auto;
     margin-left: auto;
+    margin-bottom: 10px;
+    background-color: grey;
   }
 
   .header-item
@@ -39,7 +41,12 @@
 
   .description p
   {
-    font-size: 19px;
+      font-size: 19px;
+  }
+
+  .about-container .description p
+  {
+    margin-left: 30px;
   }
 
   .work-container
@@ -48,6 +55,8 @@
     flex-direction: column;
     justify-content: space-around;
     width: 100%;
+    margin-top: 100px;
+    margin-bottom: 10px;
   }
 
   .jobs-container
@@ -97,6 +106,7 @@
     max-width: 1000px;
     margin-right: auto;
     margin-left: auto;
+    background-color: grey;
   }
 
   .column1
