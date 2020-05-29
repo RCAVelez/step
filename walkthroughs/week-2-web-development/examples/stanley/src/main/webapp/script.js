@@ -13,29 +13,28 @@
 // limitations under the License.
 
 $(document).ready(function(){
-
-    
     $('a[href="#home"]').click(function() {
-       $('html,body').animate({
-           scrollTop: $(".home").offset().top},
+      console.log("Clicked")
+       $('html,body').animate({ scrollTop: 0},
           2000);
     });
 
     $('a[href="#about"]').click(function() {
        $('html,body').animate({
-           scrollTop: $(".about").offset().top},
+           scrollTop: $(".about-container").offset().top},
           2000);
     });
 
-    $('a[href="#myWork"]').click(function() {
+    $('a[href="#work"]').click(function() {
        $('html,body').animate({
-           scrollTop: $(".myWork").offset().top},
+           scrollTop: $(".work-container").offset().top},
           2000);
     });
 
     $('a[href="#contact"]').click(function() {
        $('html,body').animate({
-           scrollTop: $(".contact").offset().top},
+           scrollTop: $(".footer-container").offset().top},
           2000);
     });
 });
+
