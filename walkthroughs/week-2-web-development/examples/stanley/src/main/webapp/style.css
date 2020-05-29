@@ -19,7 +19,6 @@
     font-size: 23px;
   }
 
-
   .content-container
   {
     display: flex;
@@ -35,18 +34,9 @@
   {
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
     border-style:solid;
     width: 100%;
-  }
-
-  .about-container.image
-  {
-    width: 100%;
-  }
-
-  .about-container.description
-  {
-      width: 400px;
   }
 
   .description p
@@ -62,18 +52,17 @@
     min-width: 300px;
   }
 
-
   .footer-container
   {
     display: flex;
     height: 200px;
-    width:100%;
+    width: 100%;
     max-width: 1000px;
     margin-right: auto;
     margin-left: auto;
   }
 
-  .footer-container div.column1
+  .column1
   {
     display: flex;
     flex-direction: column;
@@ -95,7 +84,7 @@
      text-decoration: underline;
   }
 
-  .footer-container div.column2
+  .column2
   {
     display: flex;
     flex-direction: column;
@@ -103,13 +92,6 @@
     align-items: center;
     justify-content: space-evenly;
     margin-left: 100px;
-  }
-
-  .column2
-  {
-    text-decoration: none;
-    color: black;
-    font-size: 20px;
   }
 
   input
