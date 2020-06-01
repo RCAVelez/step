@@ -14,7 +14,7 @@ button {
   margin-top: 10px;
   width: 50%;
 }
-  
+
 .about-container .description p {
   margin-left: 30px;
 }
@@ -34,7 +34,7 @@ button {
 }
 
 .jobs-container .work {
-  margin-right:auto;
+  margin-right: auto;
   margin-left: auto;
 }
 
@@ -45,7 +45,7 @@ button {
 }
 
 .projects-container {
-  display:flex;
+  display: flex;
   justify-content: space-around;
 }
 
@@ -78,7 +78,7 @@ img {
   margin-right: auto;
   margin-left: auto;
   max-width: 1000px;
-  width: 100%;  
+  width: 100%;
 }
 
 .header-item {

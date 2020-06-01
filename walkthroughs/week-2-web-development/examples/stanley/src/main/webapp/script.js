@@ -13,6 +13,8 @@
 // limitations under the License.
 
 const animateScrollTop = (targetClass) => {
-  $("html").animate({ scrollTop: $("." + targetClass).offset().top }, 2000);
+  $("html").animate({
+    scrollTop: $("." + targetClass).offset().top
+  }, 2000);
   console.log(targetClass)
 };
