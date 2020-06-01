@@ -12,34 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-$(document).ready(function(){
-    $('a[href="#home"]').click(function() {
-      console.log("Clicked")
-       $('html,body').animate({
-           scrollTop: 0},
-          2000);
-    });
-
-    $('a[href="#about"]').click(function() {
-       $('html,body').animate({
-           scrollTop: $(".about-container").offset().top},
-          2000);
-    });
-
-    $('a[href="#work"]').click(function() {
-       $('html,body').animate({
-           scrollTop: $(".work-container").offset().top},
-          2000);
-    });
-
-    $('a[href="#contact"]').click(function() {
-       $('html,body').animate({
-           scrollTop: $(".footer-container").offset().top},
-          2000);
-    });
-
-    $('button').click(function() {
-      $(".form-message").css("visibility","visible")
-    });
-
-});
+const animateScrollTop = (targetClass) => {
+  $("html").animate({ scrollTop: $("." + targetClass).offset().top }, 2000);
+  console.log(targetClass)
+};
