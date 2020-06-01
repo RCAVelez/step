@@ -18,3 +18,4 @@ const animateScrollTop = (targetClass) => {
   }, 2000);
   console.log(targetClass)
 };
+
