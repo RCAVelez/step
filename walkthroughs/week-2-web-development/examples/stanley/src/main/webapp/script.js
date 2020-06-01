@@ -12,9 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-$(document).ready(function(){
-  const animateScrollTop = (targetClass) => {
-    $("html").animate({ scrollTop: $("." + targetClass).offset().top }, 2000);
-    console.log(targetClass)
-  };
-});
+const animateScrollTop = (targetClass) => {
+  $("html").animate({ scrollTop: $("." + targetClass).offset().top }, 2000);
+  console.log(targetClass)
+};
+

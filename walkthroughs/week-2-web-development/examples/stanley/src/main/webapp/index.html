@@ -3,14 +3,16 @@
     <head>
       <meta charset="utf-8">
       <link rel="stylesheet" href="style.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script type="text/javascript" src="script.js"></script>
       <title>Raymond's Portfolio</title>
     </head>
     <body>
       <div class="header-container">
         <a class="header-item" href="#home">Raymond C. Alvarez Velez</a>
-        <a class="header-item" href="#about" onclick="animateScrollTop('.about-container')">About</a>
-        <a class="header-item" href="#work" onclick="animateScrollTop(".work-container")">My Work</a>
-        <a class="header-item" href="#contact" onclick="animateScrollTop(".footer-container")">Contact</a>
+        <a class="header-item" href="#about" onclick="animateScrollTop('about-container')">About</a>
+        <a class="header-item" href="#work" onclick="animateScrollTop('work-container')">My Work</a>
+        <a class="header-item" href="#contact" onclick="animateScrollTop('footer-container')">Contact</a>
     </div>
     <div class="content-container">
         <div class="about-container">
@@ -49,9 +51,9 @@
       </div>
       <div class="footer-container">
         <div class="column1">
-          <a class="footer-item" href="#home" onclick="animateScrollTop(.about)">Home</a>
-          <a class="footer-item" href="#about" onclick="animateScrollTop(.about-container)">About</a>
-          <a class="footer-item" href="#work" onclick="animateScrollTop(.work-container)">My Work</a>
+          <a class="footer-item" href="#home"  onclick="animateScrollTop('about-container')">Home</a>
+          <a class="footer-item" href="#about"  onclick="animateScrollTop('about-container')">About</a>
+          <a class="footer-item" href="#work"  onclick="animateScrollTop('work-container')">My Work</a>
           <a class="footer-item" href="#contact">Contact</a>
         </div>
         <div class="column2">
