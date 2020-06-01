@@ -12,30 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-$(document).ready(function(){
+const animateScrollTop = (targetClass) => {
+  $("html").animate({ scrollTop: $("." + targetClass).offset().top }, 2000);
+  console.log(targetClass)
+};
 
-    
-    $('a[href="#home"]').click(function() {
-       $('html,body').animate({
-           scrollTop: $(".home").offset().top},
-          2000);
-    });
-
-    $('a[href="#about"]').click(function() {
-       $('html,body').animate({
-           scrollTop: $(".about").offset().top},
-          2000);
-    });
-
-    $('a[href="#myWork"]').click(function() {
-       $('html,body').animate({
-           scrollTop: $(".myWork").offset().top},
-          2000);
-    });
-
-    $('a[href="#contact"]').click(function() {
-       $('html,body').animate({
-           scrollTop: $(".contact").offset().top},
-          2000);
-    });
-});
