@@ -15,6 +15,52 @@ button {
   width: 50%;
 }
 
+.about-container .description p {
+  margin-left: 30px;
+}
+
+.work-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-bottom: 10px;
+  margin-top: 100px;
+  width: 100%;
+}
+
+.jobs-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.jobs-container .work {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.work img {
+  max-width: 500px;
+  min-height: 300px;
+  min-width: 200px;
+}
+
+.projects-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.projects-container div {
+  width: 30%;
+}
+
+.about-container img {
+  height: auto;
+  max-width: 500px;
+  min-height: 300px;
+  min-width: 200px;
+  width: 100%;
+}
+
 img {
   height: auto;
   min-height: 300px;
@@ -24,11 +70,11 @@ img {
 
 .header-container {
   align-items: center;
+  background-color: grey;
   display: flex;
   height: 100px;
   justify-content: space-evenly;
-  margin-right: auto;
-  margin-left: auto;
+  margin: 0 auto 10px auto;
   max-width: 1000px;
   width: 100%;
 }
@@ -60,6 +106,7 @@ img {
 }
 
 .footer-container {
+  background-color: grey;
   display: flex;
   height: 200px;
   margin-left: auto;
@@ -94,6 +141,10 @@ img {
   justify-content: space-evenly;
   margin-left: 100px;
   width: 80%;
+}
+
+.form-message{
+  visibility: hidden;
 }
 
 /* @media screen and (min-width: 600px) {} */
