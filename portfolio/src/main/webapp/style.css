@@ -1,9 +1,150 @@
-#content {
-  margin-left: auto;
-  margin-right: auto;
-  width: 650px;
+input {
+  border-bottom: solid 1px;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  height: 30px;
+  outline: none;
+  width: 50%;
 }
 
-#greeting-container {
-  margin-top: 20px;
+.form-button {
+  height: 60px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  width: 50%;
 }
+
+.about-container .description p {
+  margin-left: 30px;
+}
+
+.work-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-bottom: 10px;
+  margin-top: 100px;
+  width: 100%;
+}
+
+.jobs-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.jobs-container .work {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.work img {
+  max-width: 500px;
+  min-height: 300px;
+  min-width: 200px;
+}
+
+.projects-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.projects-container div {
+  width: 30%;
+}
+
+.about-container img {
+  height: auto;
+  max-width: 500px;
+  min-height: 300px;
+  min-width: 200px;
+  width: 100%;
+}
+
+img {
+  height: auto;
+  min-height: 300px;
+  min-width: 300px;
+  width: 100%;
+}
+
+.header-container {
+  align-items: center;
+  background-color: grey;
+  display: flex;
+  height: 100px;
+  justify-content: space-evenly;
+  margin: 0 auto 10px auto;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.header-item {
+  color: black;
+  font-size: 23px;
+  text-decoration: none;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.about-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.description p {
+  font-size: 19px;
+}
+
+.footer-container {
+  background-color: grey;
+  display: flex;
+  height: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.column1 {
+  align-items: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 20%;
+}
+
+.column1 a {
+  color: black;
+  font-size: 20px;
+  margin-left: 100px;
+  text-decoration: none;
+}
+
+.column1 a:hover {
+  text-decoration: underline;
+}
+
+.column2 {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-left: 100px;
+  width: 80%;
+}
+
+.form-message{
+  visibility: hidden;
+}
+
+/* @media screen and (min-width: 600px) {} */
