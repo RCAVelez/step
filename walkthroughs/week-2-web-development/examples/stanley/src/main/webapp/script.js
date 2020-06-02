@@ -26,7 +26,6 @@ $(document).ready(function() {
   });
 
   $('a').click(function() {
-    console.log($(this).attr('href'))
     animateScrollTop($(this).attr('href').substr(1))
   });
 
