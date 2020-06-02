@@ -19,7 +19,8 @@ const animateScrollTop = (targetClass) => {
   console.log(targetClass)
 };
 
-const message = () => {
-  $(".form-message").css({'visibility':'visible'})
-}
-
+$(document).ready(function() {
+  $(".form-button").click(function() {
+    $(".form-message").css("visibility","visible")
+  });
+});
