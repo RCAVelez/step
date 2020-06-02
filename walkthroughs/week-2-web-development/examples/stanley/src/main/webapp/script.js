@@ -19,7 +19,15 @@ const animateScrollTop = (targetClass) => {
   console.log(targetClass)
 };
 
-const message = () => {
-  $(".form-message").css({'visibility':'visible'})
-}
 
+$(document).ready(function() {
+  $(".form-button").click(function() {
+    $(".form-message").css("visibility", "visible")
+  });
+
+  $('a').click(function() {
+    console.log($(this).attr('href'))
+    animateScrollTop($(this).attr('href').substr(1))
+  });
+
+});
