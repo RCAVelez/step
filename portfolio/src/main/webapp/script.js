@@ -25,9 +25,7 @@ const animateScrollTop = (targetClass) => {
 };
 
 $(document).ready(function() {
-  $(".form-button").click(function() {
-    getFormMessage()
-  });
+  $(".form-button").click(getFormMessage());
 
   $('a').click(function() {
     animateScrollTop($(this).attr('href').substr(1))
