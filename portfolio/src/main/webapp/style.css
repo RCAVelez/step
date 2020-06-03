@@ -112,7 +112,7 @@ img {
   max-width: 1000px;
 }
 
-.contactForm {
+.contact-form {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -127,5 +127,3 @@ img {
   display: flex;
   flex-direction: column;
 }
-
-/* @media screen and (min-width: 600px) {} */

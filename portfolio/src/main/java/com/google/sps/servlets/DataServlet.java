@@ -24,7 +24,7 @@ import java.util.ArrayList;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  String [] comments = {
+  private static final String[] COMMENTS = {
       "Wow good job on the first portfolio website",
       "You should find some help, the design is wacky",
       "Where am I?"
@@ -32,13 +32,13 @@ public class DataServlet extends HttpServlet {
   
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String json = convertToJson(comments);
+    String json = convertToJson(COMMENTS);
     
     response.setContentType("text/html;");
     response.getWriter().println(json);
   }
 
-  private String convertToJson(String[] comments) {
+  private static String convertToJson(String[] comments) {
     String json = "{";
     json += "\"comment_" + 1 + "\": ";
     json += "\"" + comments[0] + "\"";

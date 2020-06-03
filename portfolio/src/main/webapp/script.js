@@ -15,26 +15,30 @@
 async function getFormMessage() {
   const response = await fetch('/data');
   const jsonComments = await response.text();
-  var comments = JSON.parse(jsonComments);
+  const comments = JSON.parse(jsonComments);
   
   Object.keys(comments).forEach(function(commentIndex){
-    var node = document.createElement("p");
-    var textnode = document.createTextNode(comments[commentIndex]);
+    const node = document.createElement('p');
+    const textnode = document.createTextNode(comments[commentIndex]);
     node.appendChild(textnode);
     document.getElementById('comments-container').appendChild(node); 
   });
 }
 
 const animateScrollTop = (targetClass) => {
-  $("html").animate({
-    scrollTop: $("." + targetClass).offset().top
+  $('html').animate({
+    scrollTop: $('.' + targetClass).offset().top
   }, 2000);
 };
 
 $(document).ready(function() {
-  $(".form-button").click(getFormMessage);
+  $('.contact-form').submit(function(event){
+      event.preventDefault();
+      getFormMessage();
+  });
 
   $('a').click(function() {
     animateScrollTop($(this).attr('href').substr(1))
   });
+  
 });
