@@ -15,7 +15,7 @@
 async function getFormMessage() {
   const response = await fetch('/data');
   const quote = await response.text();
-  document.getElementById('quote-container').innerText = quote;
+  document.getElementById('quote-container').innerHTML = quote;
 }
 
 const animateScrollTop = (targetClass) => {
