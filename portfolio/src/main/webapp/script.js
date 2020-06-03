@@ -15,7 +15,6 @@
 async function getFormMessage() {
   const response = await fetch('/data');
   const quote = await response.text();
-  console.log(quote)
   document.getElementById('quote-container').innerHTML = quote;
 }
 
