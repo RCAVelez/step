@@ -15,6 +15,7 @@
 async function getFormMessage() {
   const response = await fetch('/data');
   const quote = await response.text();
+  console.log(quote)
   document.getElementById('quote-container').innerHTML = quote;
 }
 
@@ -25,7 +26,7 @@ const animateScrollTop = (targetClass) => {
 };
 
 $(document).ready(function() {
-  $(".form-button").click(getFormMessage());
+  $(".form-button").click(getFormMessage);
 
   $('a').click(function() {
     animateScrollTop($(this).attr('href').substr(1))
