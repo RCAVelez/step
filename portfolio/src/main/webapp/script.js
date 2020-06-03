@@ -12,19 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-async function getFormMessage(){
-    const response = await fetch('/data');
-    const quote = await response.text();
-    console.log(quote)
-    document.getElementById('quote-container').innerText = quote;
-    //$(".form-message").css("visibility", "visible")
+async function getFormMessage() {
+  const response = await fetch('/data');
+  const quote = await response.text();
+  document.getElementById('quote-container').innerText = quote;
 }
 
 const animateScrollTop = (targetClass) => {
   $("html").animate({
     scrollTop: $("." + targetClass).offset().top
   }, 2000);
-  console.log(targetClass)
 };
 
 $(document).ready(function() {
