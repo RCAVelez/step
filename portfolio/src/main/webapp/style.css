@@ -144,7 +144,7 @@ img {
 }
 
 .form-message{
-  visibility: hidden;
+  visibility: visible;
 }
 
 /* @media screen and (min-width: 600px) {} */
