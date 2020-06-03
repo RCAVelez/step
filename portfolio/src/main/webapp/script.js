@@ -14,8 +14,15 @@
 
 async function getFormMessage() {
   const response = await fetch('/data');
-  const quote = await response.text();
-  document.getElementById('quote-container').innerHTML = quote;
+  const jsonComments = await response.text();
+  var comments = JSON.parse(jsonComments);
+  
+  Object.keys(comments).forEach(function(commentIndex){
+    var node = document.createElement("p");
+    var textnode = document.createTextNode(comments[commentIndex]);
+    node.appendChild(textnode);
+    document.getElementById('comments-container').appendChild(node); 
+  });
 }
 
 const animateScrollTop = (targetClass) => {
