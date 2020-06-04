@@ -3,7 +3,7 @@ input {
   border-left: none;
   border-right: none;
   border-top: none;
-  height: 30px;
+  height: 60px;
   outline: none;
   width: 50%;
 }
@@ -34,8 +34,8 @@ input {
 }
 
 .jobs-container .work {
-  margin-right: auto;
   margin-left: auto;
+  margin-right: auto;
 }
 
 .work img {
@@ -70,7 +70,6 @@ img {
 
 .header-container {
   align-items: center;
-  background-color: grey;
   display: flex;
   height: 100px;
   justify-content: space-evenly;
@@ -88,9 +87,9 @@ img {
 .content-container {
   display: flex;
   flex-direction: column;
-  max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
+  max-width: 1000px;
   width: 100%;
 }
 
@@ -106,45 +105,25 @@ img {
 }
 
 .footer-container {
-  background-color: grey;
   display: flex;
-  height: 200px;
+  flex-direction: column;
   margin-left: auto;
   margin-right: auto;
   max-width: 1000px;
-  width: 100%;
 }
 
-.column1 {
-  align-items: left;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  width: 20%;
-}
-
-.column1 a {
-  color: black;
-  font-size: 20px;
-  margin-left: 100px;
-  text-decoration: none;
-}
-
-.column1 a:hover {
-  text-decoration: underline;
-}
-
-.column2 {
+.contact-form {
   align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  margin-left: 100px;
-  width: 80%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
 }
 
-.form-message{
-  visibility: visible;
+.comments-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 }
-
-/* @media screen and (min-width: 600px) {} */

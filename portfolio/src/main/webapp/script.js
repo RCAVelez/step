@@ -14,18 +14,29 @@
 
 async function getFormMessage() {
   const response = await fetch('/data');
-  const quote = await response.text();
-  document.getElementById('quote-container').innerHTML = quote;
+  const jsonComments = await response.text();
+  const comments = JSON.parse(jsonComments);
+  for (const key in comments) {
+    for (const index in comments[key]) {
+      const node = document.createElement('p');
+      const textnode = document.createTextNode(comments[key][index].comment);
+      node.appendChild(textnode);
+      document.getElementById('comments-container').appendChild(node);
+    }
+  }
 }
 
 const animateScrollTop = (targetClass) => {
-  $("html").animate({
-    scrollTop: $("." + targetClass).offset().top
+  $('html').animate({
+    scrollTop: $('.' + targetClass).offset().top
   }, 2000);
 };
 
 $(document).ready(function() {
-  $(".form-button").click(getFormMessage);
+  $('.contact-form').submit(function(event) {
+    event.preventDefault();
+    getFormMessage();
+  });
 
   $('a').click(function() {
     animateScrollTop($(this).attr('href').substr(1))
