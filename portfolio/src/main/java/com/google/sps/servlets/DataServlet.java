@@ -15,35 +15,70 @@
 package com.google.sps.servlets;
 
 import java.io.IOException;
+import java.io.StringReader;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObject;
+
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   private static final String[] COMMENTS = {
-      "Wow good job on the first portfolio website",
-      "You should find some help, the design is wacky",
-      "Where am I?"
+    "Wow good job on the first portfolio website",
+    "You should find some help, the design is wacky",
+    "Where am I?"
   };
-  
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String json = convertToJson(COMMENTS);
+    String json = convertArrayToJson(COMMENTS);
     response.setContentType("text/html;");
     response.getWriter().println(json);
   }
 
-  private static String convertToJson(String[] comments) {
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String body = request.getReader().lines().reduce("", String::concat);
+
+    String result = formatJson();
+    response.setContentType("text/html");
+    response.getWriter().println(json);
+  }
+
+  private static String formatJson(String body) {
+    JsonObject json = Json.createReader(new StringReader(body)).readObject();
+    JsonObject commentObj =
+        Json.createObjectBuilder()
+            .add("comment", json["comment"])
+            .add("name", json["name"])
+            .build();
+
+    JsonArray jsonComments = Json.createArrayBuilder().add(commentObj).build();
+
+    JsonObject json = Json.createObjectBuilder().add("comments", jsonComments).build();
+    String result = json.toString();
+    return result;
+  }
+
+  private static String convertArrayToJson(String[] comments) {
     JsonArrayBuilder jsonComments = Json.createArrayBuilder();
-    for(int index = 0; index < comments.length; index++) {
+    for (int index = 0; index < comments.length; index++) {
       jsonComments.add(Json.createObjectBuilder().add("comment", comments[index]).build());
     }
-    JsonObject json = Json.createObjectBuilder().add("comments", jsonComments.build()).build();     
+    JsonObject json = Json.createObjectBuilder().add("comments", jsonComments.build()).build();
     return json.toString();
+  }
+
+  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
+    String value = request.getParameter(name);
+    if (value == null) {
+      return defaultValue;
+    }
+    return value;
   }
 }

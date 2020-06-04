@@ -34,8 +34,8 @@ input {
 }
 
 .jobs-container .work {
-  margin-right: auto;
   margin-left: auto;
+  margin-right: auto;
 }
 
 .work img {
@@ -87,9 +87,9 @@ img {
 .content-container {
   display: flex;
   flex-direction: column;
-  max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
+  max-width: 1000px;
   width: 100%;
 }
 
@@ -116,10 +116,10 @@ img {
   align-items: center;
   display: flex;
   flex-direction: column;
+  height: 100%;
   margin-left: auto;
   margin-right: auto;
   width: 100%;
-  height: 100%;
 }
 
 .comments-container {
