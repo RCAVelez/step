@@ -19,8 +19,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
@@ -33,22 +34,16 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String json = convertToJson(COMMENTS);
-    
     response.setContentType("text/html;");
     response.getWriter().println(json);
   }
 
   private static String convertToJson(String[] comments) {
-    String json = "{";
-    json += "\"comment_" + 1 + "\": ";
-    json += "\"" + comments[0] + "\"";
-    json += ", ";
-    json += "\"comment_" + 2 + "\": ";
-    json += "\"" + comments[1] + "\"";
-    json += ", ";
-    json += "\"comment_" + 3 + "\": ";
-    json += "\"" + comments[2] + "\"";
-    json += "}";
-    return json; 
+    JsonArrayBuilder jsonComments = Json.createArrayBuilder();
+    for(int index = 0; index < comments.length; index++) {
+      jsonComments.add(Json.createObjectBuilder().add("comment", comments[index]).build());
+    }
+    JsonObject json = Json.createObjectBuilder().add("comments", jsonComments.build()).build();     
+    return json.toString();
   }
 }

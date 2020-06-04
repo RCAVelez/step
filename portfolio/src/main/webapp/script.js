@@ -16,13 +16,15 @@ async function getFormMessage() {
   const response = await fetch('/data');
   const jsonComments = await response.text();
   const comments = JSON.parse(jsonComments);
-  
-  Object.keys(comments).forEach(function(commentIndex){
-    const node = document.createElement('p');
-    const textnode = document.createTextNode(comments[commentIndex]);
-    node.appendChild(textnode);
-    document.getElementById('comments-container').appendChild(node); 
-  });
+  let node;
+  for(const key in comments) {
+    for(const index in comments[key]){
+      node = document.createElement('p');
+      const textnode = document.createTextNode(comments[key][index].comment);
+      node.appendChild(textnode);
+      document.getElementById('comments-container').appendChild(node); 
+    }
+  } 
 }
 
 const animateScrollTop = (targetClass) => {
@@ -40,5 +42,4 @@ $(document).ready(function() {
   $('a').click(function() {
     animateScrollTop($(this).attr('href').substr(1))
   });
-  
 });
