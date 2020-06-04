@@ -15,9 +15,7 @@
 package com.google.sps.servlets;
 
 import java.io.IOException;
-import java.io.StringReader;
 import javax.json.Json;
-import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.servlet.annotation.WebServlet;
@@ -43,26 +41,9 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String body = request.getReader().lines().reduce("", String::concat);
-
-    String result = formatJson();
+    String body = request.getReader().lines().reduce("", String::concat); // grabs request body
     response.setContentType("text/html");
-    response.getWriter().println(json);
-  }
-
-  private static String formatJson(String body) {
-    JsonObject json = Json.createReader(new StringReader(body)).readObject();
-    JsonObject commentObj =
-        Json.createObjectBuilder()
-            .add("comment", json["comment"])
-            .add("name", json["name"])
-            .build();
-
-    JsonArray jsonComments = Json.createArrayBuilder().add(commentObj).build();
-
-    JsonObject json = Json.createObjectBuilder().add("comments", jsonComments).build();
-    String result = json.toString();
-    return result;
+    response.getWriter().println(body);
   }
 
   private static String convertArrayToJson(String[] comments) {

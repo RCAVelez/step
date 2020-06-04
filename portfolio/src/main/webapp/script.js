@@ -42,14 +42,11 @@ async function postComment(comment, name) {
   const jsonComments = await response.text();
   const comments = JSON.parse(jsonComments);
 
-  for (const key in comments) {
-    for (const index in comments[key]) {
-      const commentNode = createNode("p", comments[key][index].comment);
-      document.getElementById("comments-container").appendChild(commentNode);
-      const nameNode = createNode("p", comments[key][index].name);
-      document.getElementById("comments-container").appendChild(nameNode);
-    }
-  }
+  const commentNode = createNode("p", comments["comment"]);
+  document.getElementById("comments-container").appendChild(commentNode);
+  const nameNode = createNode("p", comments["name"]);
+  document.getElementById("comments-container").appendChild(nameNode);
+
 }
 
 function createNode(tag, text) {
