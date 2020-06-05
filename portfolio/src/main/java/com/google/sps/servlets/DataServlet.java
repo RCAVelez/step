@@ -67,7 +67,6 @@ public class DataServlet extends HttpServlet {
   private static String getDataStoreAll(DatastoreService datastore) {
     JsonObject jAll = new JsonObject();
     JsonArray jArr = new JsonArray();
-
     Query query = new Query("Comments").addSort("timestamp", SortDirection.DESCENDING);
     PreparedQuery results = datastore.prepare(query);
 

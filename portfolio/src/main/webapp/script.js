@@ -62,10 +62,3 @@ async function postComment(comment, name) {
   $('#comments-container').append(`<p>${commentObj.comment}</p>`);
   $('#comments-container').append(`<p>${commentObj.name}</p>`);
 }
-
-function createNode(tag, text) {
-  let node = document.createElement(tag);
-  const textnode = document.createTextNode(text);
-  node.appendChild(textnode);
-  return node;
-}
