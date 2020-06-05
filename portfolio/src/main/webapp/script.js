@@ -62,8 +62,8 @@ async function getComments() {
   const comments = jsonComments["comments"];
   for (let index = 0; index < comments.length; index++) {
     const comment = comments[index];
-    $('#comments-section').append(`<p>${comment.comment}</p>`);
-    $('#comments-section').append(`<p>${comment.name}</p>`);
+    $('#comments-container').append(`<p>${comment.comment}</p>`);
+    $('#comments-container').append(`<p>${comment.name}</p>`);
   }
 }
 
@@ -78,6 +78,6 @@ async function postComment(comment, name) {
   });
   const jsonComment = await response.text();
   const commentObj = JSON.parse(jsonComment);
-  $('#comments-section').append(`<p>${commentObj.comment}</p>`);
-  $('#comments-section').append(`<p>${commentObj.name}</p>`);
+  $('#comments-container').append(`<p>${commentObj.comment}</p>`);
+  $('#comments-container').append(`<p>${commentObj.name}</p>`);
 }

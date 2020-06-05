@@ -41,7 +41,6 @@ public class DataServlet extends HttpServlet {
 
     response.setContentType("text/html;");
     response.getWriter().println(json);
-    response.sendRedirect("/index.html");
   }
 
   @Override
