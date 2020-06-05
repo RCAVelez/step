@@ -24,6 +24,25 @@ $(document).ready(function() {
     const comment = $(".form-comment").val();
     postComment(comment, name);
   });
+
+  $(".comments-editor").submit(function(event) {
+    event.preventDefault();
+    $.ajax({
+      url: '/comments',
+      type: 'GET',
+      data: "&num=" + $('.comments-num').val(),
+      success: function(response) {
+        const jsonComments = JSON.parse(response);
+        const comments = jsonComments["comments"];
+        $(".comments-section").empty();
+        for (let index = 0; index < comments.length; index++) {
+          const comment = comments[index];
+          $('.comments-section').append(`<p>${comment.comment}</p>`);
+          $('.comments-section').append(`<p>${comment.name}</p>`);
+        }
+      }
+    });
+  });
 });
 
 const animateScrollTop = (targetClass) => {
@@ -43,8 +62,8 @@ async function getComments() {
   const comments = jsonComments["comments"];
   for (let index = 0; index < comments.length; index++) {
     const comment = comments[index];
-    $('#comments-container').append(`<p>${comment.comment}</p>`);
-    $('#comments-container').append(`<p>${comment.name}</p>`);
+    $('#comments-section').append(`<p>${comment.comment}</p>`);
+    $('#comments-section').append(`<p>${comment.name}</p>`);
   }
 }
 
@@ -59,6 +78,6 @@ async function postComment(comment, name) {
   });
   const jsonComment = await response.text();
   const commentObj = JSON.parse(jsonComment);
-  $('#comments-container').append(`<p>${commentObj.comment}</p>`);
-  $('#comments-container').append(`<p>${commentObj.name}</p>`);
+  $('#comments-section').append(`<p>${commentObj.comment}</p>`);
+  $('#comments-section').append(`<p>${commentObj.name}</p>`);
 }

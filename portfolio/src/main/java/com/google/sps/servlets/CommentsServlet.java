@@ -21,57 +21,52 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
-@WebServlet("/data")
-public class DataServlet extends HttpServlet {
+/** Servlet that encapsulates the subtraction game. */
+@WebServlet("/comments")
+public final class CommentsServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String numRequest = getParameter(request, "num", "");
+    int num = Integer.parseInt(numRequest);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    String json = getDataStoreAll(datastore);
-
+    String json = getDataStoreLimit(datastore, num);
     response.setContentType("text/html;");
     response.getWriter().println(json);
-    response.sendRedirect("/index.html");
   }
 
   @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Entity commentsEntity = new Entity("Comments");
-    String body = request.getReader().lines().reduce("", String::concat); // grabs request body
-    JsonElement jelement = new JsonParser().parse(body);
-    JsonObject jobject = jelement.getAsJsonObject();
-    String name = jobject.get("name").getAsString();
-    String comment = jobject.get("comment").getAsString();
-    long timestamp = System.currentTimeMillis();
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {}
 
-    commentsEntity.setProperty("name", name);
-    commentsEntity.setProperty("comment", comment);
-    commentsEntity.setProperty("timestamp", timestamp);
-
-    datastore.put(commentsEntity);
-
-    response.setContentType("text/html");
-    response.getWriter().println(body);
+  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
+    String value = request.getParameter(name);
+    if (value == null) {
+      return defaultValue;
+    }
+    return value;
   }
 
-  private static String getDataStoreAll(DatastoreService datastore) {
+  private static String getDataStoreLimit(DatastoreService datastore, int num) {
+
     JsonObject jAll = new JsonObject();
     JsonArray jArr = new JsonArray();
     Query query = new Query("Comments").addSort("timestamp", SortDirection.DESCENDING);
     PreparedQuery results = datastore.prepare(query);
-
+    int count = 0;
     for (Entity entity : results.asIterable()) {
+      if (num != -1) {
+        if (count >= num) {
+          break;
+        }
+      }
+      count += 1;
       String name = (String) entity.getProperty("name");
       String comment = (String) entity.getProperty("comment");
       JsonObject jObj = new JsonObject();
