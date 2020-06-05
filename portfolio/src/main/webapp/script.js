@@ -50,7 +50,7 @@ async function postComment(comment, name) {
 }
 
 function createNode(tag, text) {
-  let node = document.createElement(tag);
+  const node = document.createElement(tag);
   const textnode = document.createTextNode(text);
   node.appendChild(textnode);
   return node;

@@ -54,12 +54,4 @@ public class DataServlet extends HttpServlet {
     JsonObject json = Json.createObjectBuilder().add("comments", jsonComments.build()).build();
     return json.toString();
   }
-
-  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
-    String value = request.getParameter(name);
-    if (value == null) {
-      return defaultValue;
-    }
-    return value;
-  }
 }
