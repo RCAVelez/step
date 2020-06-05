@@ -20,6 +20,7 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -35,7 +36,9 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String json = "";
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    String json = getDataStoreAll(datastore);
+
     response.setContentType("text/html;");
     response.getWriter().println(json);
   }
@@ -57,16 +60,27 @@ public class DataServlet extends HttpServlet {
 
     datastore.put(commentsEntity);
 
-    Query query = new Query("Comments").addSort("timestamp", SortDirection.DESCENDING);
-    PreparedQuery results = datastore.prepare(query);
-    for (Entity entity : results.asIterable()) {
-      name = (String) entity.getProperty("name");
-      comment = (String) entity.getProperty("comment");
-      System.out.println(name);
-      System.out.println(comment);
-    }
-
     response.setContentType("text/html");
     response.getWriter().println(body);
+  }
+
+  private static String getDataStoreAll(DatastoreService datastore) {
+    JsonObject jAll = new JsonObject();
+    JsonArray jArr = new JsonArray();
+
+    Query query = new Query("Comments").addSort("timestamp", SortDirection.DESCENDING);
+    PreparedQuery results = datastore.prepare(query);
+
+    for (Entity entity : results.asIterable()) {
+      String name = (String) entity.getProperty("name");
+      String comment = (String) entity.getProperty("comment");
+      JsonObject jObj = new JsonObject();
+      jObj.addProperty("name", name);
+      jObj.addProperty("comment", comment);
+      jArr.add(jObj);
+    }
+    jAll.add("comments", jArr);
+
+    return jAll.toString();
   }
 }

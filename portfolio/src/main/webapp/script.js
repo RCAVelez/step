@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 $(document).ready(function () {
+  getComments();
   $("a").click(function () {
     animateScrollTop($(this).attr("href").substr(1));
   });
@@ -33,17 +34,26 @@ const animateScrollTop = (targetClass) => {
   );
 };
 
+async function getComments() {
+  const response = await fetch("/data", {
+    method: "GET"
+  });
+  const jsonComments = await response.text();
+  console.log(jsonComments);
+}
+
 async function postComment(comment, name) {
   const data = { name: name, comment: comment };
   const response = await fetch("/data", {
     method: "POST",
     body: JSON.stringify(data),
   });
-  const jsonComments = await response.text();
-  const comments = JSON.parse(jsonComments);
-  const commentNode = createNode("p", comments["comment"]);
+  const jsonComment = await response.text();
+  const commentJson = JSON.parse(jsonComment);
+
+  const commentNode = createNode("p", commentJson["comment"]);
   document.getElementById("comments-container").appendChild(commentNode);
-  const nameNode = createNode("p", comments["name"]);
+  const nameNode = createNode("p", commentJson["name"]);
   document.getElementById("comments-container").appendChild(nameNode);
 }
 
