@@ -11,34 +11,45 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
-async function getFormMessage() {
-  const response = await fetch('/data');
-  const jsonComments = await response.text();
-  const comments = JSON.parse(jsonComments);
-  for (const key in comments) {
-    for (const index in comments[key]) {
-      const node = document.createElement('p');
-      const textnode = document.createTextNode(comments[key][index].comment);
-      node.appendChild(textnode);
-      document.getElementById('comments-container').appendChild(node);
-    }
-  }
-}
-
-const animateScrollTop = (targetClass) => {
-  $('html').animate({
-    scrollTop: $('.' + targetClass).offset().top
-  }, 2000);
-};
-
-$(document).ready(function() {
-  $('.contact-form').submit(function(event) {
-    event.preventDefault();
-    getFormMessage();
+$(document).ready(function () {
+  $("a").click(function () {
+    animateScrollTop($(this).attr("href").substr(1));
   });
 
-  $('a').click(function() {
-    animateScrollTop($(this).attr('href').substr(1))
+  $(".contact-form").submit(function (event) {
+    event.preventDefault();
+    const name = $(".form-name").val();
+    const comment = $(".form-comment").val();
+    postComment(comment, name);
   });
 });
+
+const animateScrollTop = (targetClass) => {
+  $("html").animate(
+    {
+      scrollTop: $("." + targetClass).offset().top,
+    },
+    2000
+  );
+};
+
+async function postComment(comment, name) {
+  const data = { name: name, comment: comment };
+  const response = await fetch("/data", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+  const jsonComments = await response.text();
+  const comments = JSON.parse(jsonComments);
+  const commentNode = createNode("p", comments.comment);
+  document.getElementById("comments-container").appendChild(commentNode);
+  const nameNode = createNode("p", comments.name);
+  document.getElementById("comments-container").appendChild(nameNode);
+}
+
+function createNode(tag, text) {
+  const node = document.createElement(tag);
+  const textnode = document.createTextNode(text);
+  node.appendChild(textnode);
+  return node;
+}

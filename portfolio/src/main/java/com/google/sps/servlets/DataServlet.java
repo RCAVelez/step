@@ -34,12 +34,19 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String json = convertToJson(COMMENTS);
+    String json = convertArrayToJson(COMMENTS);
     response.setContentType("text/html;");
     response.getWriter().println(json);
   }
 
-  private static String convertToJson(String[] comments) {
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String body = request.getReader().lines().reduce("", String::concat); // grabs request body
+    response.setContentType("text/html");
+    response.getWriter().println(body);
+  }
+
+  private static String convertArrayToJson(String[] comments) {
     JsonArrayBuilder jsonComments = Json.createArrayBuilder();
     for (int index = 0; index < comments.length; index++) {
       jsonComments.add(Json.createObjectBuilder().add("comment", comments[index]).build());
