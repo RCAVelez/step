@@ -38,7 +38,7 @@ public final class CommentsServlet extends HttpServlet {
     int num = Integer.parseInt(numRequest);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     String json = getDataStoreLimit(datastore, num);
-    response.setContentType("text/html;");
+    response.setContentType("text/html");
     response.getWriter().println(json);
   }
 

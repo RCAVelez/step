@@ -39,14 +39,14 @@ public class DataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     String json = getDataStoreAll(datastore);
 
-    response.setContentType("text/html;");
+    response.setContentType("text/html");
     response.getWriter().println(json);
   }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Entity commentsEntity = new Entity("Comments");
+    Entity commentsEntity = new Entity("Comments", "comm");
     String body = request.getReader().lines().reduce("", String::concat); // grabs request body
     JsonElement jelement = new JsonParser().parse(body);
     JsonObject jobject = jelement.getAsJsonObject();
