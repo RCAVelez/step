@@ -14,19 +14,19 @@
 $(document).ready(function() {
   getComments();
 
-  $(".deleter").click(function(event) {
+  $('.deleter').click(function(event) {
     event.preventDefault();
     $.ajax({
       url: '/delete-data',
       type: 'POST',
       success: function(response) {
-        $(".comments-section").empty();
+        $('.comments-section').empty();
       }
     });
   });
 
-  $("a").click(function() {
-    animateScrollTop($(this).attr("href").substr(1));
+  $('a').click(function() {
+    animateScrollTop($(this).attr('href').substr(1));
   });
 
   $('.contact-form').submit(function(event) {
@@ -36,16 +36,16 @@ $(document).ready(function() {
     postComment(comment, name);
   });
 
-  $(".comments-editor").submit(function(event) {
+  $('.comments-editor').submit(function(event) {
     event.preventDefault();
     $.ajax({
       url: '/comments',
       type: 'GET',
-      data: "&num=" + $('.comments-num').val(),
+      data: '&num=' + $('.comments-num').val(),
       success: function(response) {
         const jsonComments = JSON.parse(response);
-        const comments = jsonComments["comments"];
-        $(".comments-section").empty();
+        const comments = jsonComments['comments'];
+        $('.comments-section').empty();
         for (let index = 0; index < comments.length; index++) {
           const comment = comments[index];
           $('.comments-section').append(`<p>${comment.comment}</p>`);

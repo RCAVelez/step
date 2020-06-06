@@ -38,7 +38,7 @@ public final class CommentsServlet extends HttpServlet {
     int num = Integer.parseInt(numRequest);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     String json = getDataStoreLimit(datastore, num);
-    response.setContentType("text/html");
+    response.setContentType("application/json");
     response.getWriter().println(json);
   }
 
@@ -54,13 +54,12 @@ public final class CommentsServlet extends HttpServlet {
   }
 
   private static String getDataStoreLimit(DatastoreService datastore, int num) {
-
-    JsonObject jAll = new JsonObject();
-    JsonArray jArr = new JsonArray();
+    JsonObject results = new JsonObject();
+    JsonArray comments = new JsonArray();
     Query query = new Query("Comments").addSort("timestamp", SortDirection.DESCENDING);
-    PreparedQuery results = datastore.prepare(query);
+    PreparedQuery preparedQuery = datastore.prepare(query);
     int count = 0;
-    for (Entity entity : results.asIterable()) {
+    for (Entity entity : preparedQuery.asIterable()) {
       if (num != -1) {
         if (count >= num) {
           break;
@@ -69,13 +68,13 @@ public final class CommentsServlet extends HttpServlet {
       count += 1;
       String name = (String) entity.getProperty("name");
       String comment = (String) entity.getProperty("comment");
-      JsonObject jObj = new JsonObject();
-      jObj.addProperty("name", name);
-      jObj.addProperty("comment", comment);
-      jArr.add(jObj);
+      JsonObject commentObject = new JsonObject();
+      commentObject.addProperty("name", name);
+      commentObject.addProperty("comment", comment);
+      comments.add(commentObject);
     }
-    jAll.add("comments", jArr);
+    results.add("comments", comments);
 
-    return jAll.toString();
+    return results.toString();
   }
 }
