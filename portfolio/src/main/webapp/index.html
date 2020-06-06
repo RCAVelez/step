@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="utf-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script type="text/javascript" src="script.js"></script>
@@ -89,10 +90,25 @@
       <input class="form-comment" type="text" name="comment" placeholder="Enter Comment">
       <button class="form-button" type="submit" name="button">Send</button>
     </form>
+
     <div id="comments-container">
       <h1 class="comments-title">Comments</h1>
+      <form class="comments-editor" action="/comments" method="get">
+        <select class="custom-select custom-select-lg mb-3 comments-num" name="num">
+          <option selected>Choose num of comments</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+          <option value="-1">All</option>
+        </select>
+        <button class="btn btn-primary" type="submit">Get them Comments</button>
+      </form>
+      <div class="comments-section"></div>
     </div>
+
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 
 </html>

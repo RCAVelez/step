@@ -24,6 +24,25 @@ $(document).ready(function() {
     const comment = $('.form-comment').val();
     postComment(comment, name);
   });
+
+  $(".comments-editor").submit(function(event) {
+    event.preventDefault();
+    $.ajax({
+      url: '/comments',
+      type: 'GET',
+      data: "&num=" + $('.comments-num').val(),
+      success: function(response) {
+        const jsonComments = JSON.parse(response);
+        const comments = jsonComments["comments"];
+        $(".comments-section").empty();
+        for (let index = 0; index < comments.length; index++) {
+          const comment = comments[index];
+          $('.comments-section').append(`<p>${comment.comment}</p>`);
+          $('.comments-section').append(`<p>${comment.name}</p>`);
+        }
+      }
+    });
+  });
 });
 
 const animateScrollTop = (targetClass) => {
@@ -47,7 +66,7 @@ async function getComments() {
   const jsonComments = JSON.parse(jsonResponse);
   const comments = jsonComments.comments;
   for (const comment of comments) {
-    addCommentToDOM('#comments-container', comment);
+    addCommentToDOM('.comments-section', comment);
   }
 }
 
@@ -60,6 +79,6 @@ async function postComment(comment, name) {
     method: 'POST',
     body: JSON.stringify(data),
   });
-  $('#comments-container').append(`<p>${comment}</p>`);
-  $('#comments-container').append(`<p>${name}</p>`);
+  $('.comments-section').append(`<p>${comment}</p>`);
+  $('.comments-section').append(`<p>${name}</p>`);
 }
