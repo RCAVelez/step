@@ -14,8 +14,19 @@
 $(document).ready(function() {
   getComments();
 
-  $('a').click(function() {
-    animateScrollTop($(this).attr('href').substr(1));
+  $(".deleter").click(function(event) {
+    event.preventDefault();
+    $.ajax({
+      url: '/delete-data',
+      type: 'POST',
+      success: function(response) {
+        $(".comments-section").empty();
+      }
+    });
+  });
+
+  $("a").click(function() {
+    animateScrollTop($(this).attr("href").substr(1));
   });
 
   $('.contact-form').submit(function(event) {

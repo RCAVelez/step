@@ -37,13 +37,22 @@ public class DataServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String json = fetchAllCommentsJson(datastore);
 
+<<<<<<< HEAD
     response.setContentType("application/json");
+=======
+    response.setContentType("text/html");
+>>>>>>> 21dc9a0... Delete all comments from data store
     response.getWriter().println(json);
   }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+<<<<<<< HEAD
     Entity commentsEntity = new Entity("Comments");
+=======
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    Entity commentsEntity = new Entity("Comments", "comm");
+>>>>>>> 21dc9a0... Delete all comments from data store
     String body = request.getReader().lines().reduce("", String::concat); // grabs request body
     JsonObject commentJson = new JsonParser().parse(body).getAsJsonObject();
     String name = commentJson.get("name").getAsString();
