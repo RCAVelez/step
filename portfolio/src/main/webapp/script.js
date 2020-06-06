@@ -73,6 +73,7 @@ async function getComments() {
   const response = await fetch('/data', {
     method: 'GET',
   });
+
   const jsonResponse = await response.text();
   const jsonComments = JSON.parse(jsonResponse);
   const comments = jsonComments.comments;
