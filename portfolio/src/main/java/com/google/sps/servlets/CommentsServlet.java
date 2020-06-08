@@ -21,6 +21,7 @@ import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import java.io.IOException;
@@ -59,7 +60,17 @@ public final class CommentsServlet extends HttpServlet {
     JsonArray comments = new JsonArray();
     Query query = new Query("Comments").addSort("timestamp", SortDirection.DESCENDING);
     PreparedQuery preparedQuery = datastore.prepare(query);
-    List<Entity> entities = preparedQuery.asList(FetchOptions.Builder.withLimit(num));
+    List<Entity> entities;
+    if (num == -1) {
+      entities = Lists.newArrayList(preparedQuery.asIterable());
+    } else {
+      entities = preparedQuery.asList(FetchOptions.Builder.withLimit(num));
+    }
+
+    // PreparedQuery preparedQuery = datastore.prepare(query);
+    // for (Entity entity : preparedQuery.asIterable())
+
+    // List<Entity> entities = preparedQuery.asList(FetchOptions.Builder.withLimit(num));
 
     for (Entity entity : entities) {
       System.out.println(entity);
