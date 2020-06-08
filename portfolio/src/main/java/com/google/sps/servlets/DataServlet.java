@@ -43,6 +43,7 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
     Entity commentsEntity = new Entity("Comments", "comm");
     String body = request.getReader().lines().reduce("", String::concat); // grabs request body
     JsonObject commentJson = new JsonParser().parse(body).getAsJsonObject();
@@ -50,6 +51,7 @@ public class DataServlet extends HttpServlet {
     String comment = commentJson.get("comment").getAsString();
     long timestamp = System.currentTimeMillis();
 
+    Entity commentsEntity = new Entity("Comments");
     commentsEntity.setProperty("name", name);
     commentsEntity.setProperty("comment", comment);
     commentsEntity.setProperty("timestamp", timestamp);
