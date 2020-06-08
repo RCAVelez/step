@@ -21,7 +21,7 @@ public class DeleteServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     Key commentsKey = KeyFactory.createKey("Comments", "comm");
     datastore.delete(commentsKey);
-    response.setContentType("application/json");
+    response.setContentType("text/html");
     response.getWriter().println("");
   }
 }

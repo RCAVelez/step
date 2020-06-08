@@ -17,35 +17,36 @@ package com.google.sps.servlets;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet that encapsulates the subtraction game. */
 @WebServlet("/comments")
 public final class CommentsServlet extends HttpServlet {
+  private final DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String numRequest = getParameter(request, "num", "");
+    String numRequest = getRequestParameter(request, "num", "0");
     int num = Integer.parseInt(numRequest);
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    String json = getDataStoreLimit(datastore, num);
-    response.setContentType("application/json");
+    String json = getXNumOfComments(datastore, num);
+    response.setContentType("text/html");
     response.getWriter().println(json);
   }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {}
 
-  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
+  private String getRequestParameter(HttpServletRequest request, String name, String defaultValue) {
     String value = request.getParameter(name);
     if (value == null) {
       return defaultValue;
@@ -53,19 +54,15 @@ public final class CommentsServlet extends HttpServlet {
     return value;
   }
 
-  private static String getDataStoreLimit(DatastoreService datastore, int num) {
+  private static String getXNumOfComments(DatastoreService datastore, int num) {
     JsonObject results = new JsonObject();
     JsonArray comments = new JsonArray();
     Query query = new Query("Comments").addSort("timestamp", SortDirection.DESCENDING);
     PreparedQuery preparedQuery = datastore.prepare(query);
-    int count = 0;
-    for (Entity entity : preparedQuery.asIterable()) {
-      if (num != -1) {
-        if (count >= num) {
-          break;
-        }
-      }
-      count += 1;
+    List<Entity> entities = preparedQuery.asList(FetchOptions.Builder.withLimit(num));
+
+    for (Entity entity : entities) {
+      System.out.println(entity);
       String name = (String) entity.getProperty("name");
       String comment = (String) entity.getProperty("comment");
       JsonObject commentObject = new JsonObject();

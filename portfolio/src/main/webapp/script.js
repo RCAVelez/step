@@ -44,12 +44,10 @@ $(document).ready(function() {
       data: '&num=' + $('.comments-num').val(),
       success: function(response) {
         const jsonComments = JSON.parse(response);
-        const comments = jsonComments['comments'];
+        const comments = jsonComments.comments;
         $('.comments-section').empty();
-        for (let index = 0; index < comments.length; index++) {
-          const comment = comments[index];
-          $('.comments-section').append(`<p>${comment.comment}</p>`);
-          $('.comments-section').append(`<p>${comment.name}</p>`);
+        for (const comment of comments) {
+          addCommentToDOM('.comments-section', comment);
         }
       }
     });
