@@ -50,6 +50,7 @@ public class DataServlet extends HttpServlet {
     String comment = commentJson.get("comment").getAsString();
     long timestamp = System.currentTimeMillis();
 
+    Entity commentsEntity = new Entity("Comments");
     commentsEntity.setProperty("name", name);
     commentsEntity.setProperty("comment", comment);
     commentsEntity.setProperty("timestamp", timestamp);
