@@ -54,7 +54,21 @@ $(document).ready(function() {
       }
     });
   });
+
+  $('#image-upload-form').on('load',fetchBlobstoreUrlAndShowForm());
 });
+
+function fetchBlobstoreUrlAndShowForm() {
+  fetch('/blobstore-upload-url')
+      .then((response) => {
+        return response.text();
+      })
+      .then((imageUploadUrl) => {
+        const messageForm = document.getElementById('image-upload-form');
+        messageForm.action = imageUploadUrl;
+        messageForm.classList.remove('hidden');
+      });
+}
 
 const animateScrollTop = (targetClass) => {
   $('html').animate({
