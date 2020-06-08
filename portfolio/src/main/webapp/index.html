@@ -93,7 +93,7 @@
 
     <div id="comments-container">
       <h1 class="comments-title">Comments</h1>
-      <form class="comments-editor" action="/comments" method="get">
+      <form id="comments-editor" action="/comments" method="get">
         <select class="custom-select custom-select-lg mb-3 comments-num" name="num">
           <option selected>Choose num of comments</option>
           <option value="1">One</option>
@@ -103,7 +103,7 @@
         </select>
         <button class="btn btn-primary" type="submit">Get them Comments</button>
       </form>
-      <button class="btn btn-primary deleter" type="submit">Delete them Comments</button>
+      <button id="deleter" class="btn btn-primary" type="submit">Delete them Comments</button>
       <div class="comments-section"></div>
     </div>
 

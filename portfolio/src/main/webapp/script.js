@@ -11,32 +11,25 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-$(document).ready(function() {
+$(document).ready(() =>  {
   getComments();
 
-  $('.deleter').click(function(event) {
-    event.preventDefault();
-    $.ajax({
-      url: '/delete-data',
-      type: 'POST',
-      success: function(response) {
-        $('.comments-section').empty();
-      }
-    });
+  $('#deleter').click((event) => {
+    deleteComments(event);
   });
 
-  $('a').click(function() {
+  $('a').click(() => {
     animateScrollTop($(this).attr('href').substr(1));
   });
 
-  $('.contact-form').submit(function(event) {
+  $('.contact-form').submit((event) => {
     event.preventDefault();
     const name = $('.form-name').val();
     const comment = $('.form-comment').val();
     postComment(comment, name);
   });
 
-  $('.comments-editor').submit(function(event) {
+  $('#comments-editor').submit((event) => {
     event.preventDefault();
     $.ajax({
       url: '/comments',
@@ -53,6 +46,17 @@ $(document).ready(function() {
     });
   });
 });
+
+function deleteComments(event) {
+  event.preventDefault();
+  $.ajax({
+    url: '/delete-data',
+    type: 'POST',
+    success: function(response) {
+      $('.comments-section').empty();
+    }
+  });
+}
 
 const animateScrollTop = (targetClass) => {
   $('html').animate({

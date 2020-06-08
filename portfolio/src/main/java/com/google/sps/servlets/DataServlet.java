@@ -55,7 +55,7 @@ public class DataServlet extends HttpServlet {
     commentsEntity.setProperty("timestamp", timestamp);
 
     datastore.put(commentsEntity);
-    System.out.println(fetchAllCommentsJson(datastore));
+
     response.setContentType("application/json");
     response.getWriter().println(body);
   }

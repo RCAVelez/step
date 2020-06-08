@@ -37,7 +37,7 @@ public final class CommentsServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String numRequest = getRequestParameter(request, "num", "0");
+    String numRequest = getRequestParameter(request, "num", "0"); /* defaultValue= 0*/
     int num = Integer.parseInt(numRequest);
     String json = getXNumOfComments(datastore, num);
     response.setContentType("text/html");
@@ -66,14 +66,7 @@ public final class CommentsServlet extends HttpServlet {
     } else {
       entities = preparedQuery.asList(FetchOptions.Builder.withLimit(num));
     }
-
-    // PreparedQuery preparedQuery = datastore.prepare(query);
-    // for (Entity entity : preparedQuery.asIterable())
-
-    // List<Entity> entities = preparedQuery.asList(FetchOptions.Builder.withLimit(num));
-
     for (Entity entity : entities) {
-      System.out.println(entity);
       String name = (String) entity.getProperty("name");
       String comment = (String) entity.getProperty("comment");
       JsonObject commentObject = new JsonObject();
