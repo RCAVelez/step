@@ -14,44 +14,68 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import java.io.IOException;
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObject;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  private static final String[] COMMENTS = {
-    "Wow good job on the first portfolio website",
-    "You should find some help, the design is wacky",
-    "Where am I?"
-  };
+  private final DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String json = convertArrayToJson(COMMENTS);
-    response.setContentType("text/html;");
+    String json = fetchAllCommentsJson(datastore);
+
+    response.setContentType("application/json");
     response.getWriter().println(json);
   }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String body = request.getReader().lines().reduce("", String::concat); // grabs request body
-    response.setContentType("text/html");
+    JsonObject commentJson = new JsonParser().parse(body).getAsJsonObject();
+    String name = commentJson.get("name").getAsString();
+    String comment = commentJson.get("comment").getAsString();
+    long timestamp = System.currentTimeMillis();
+
+    Entity commentsEntity = new Entity("Comments");
+    commentsEntity.setProperty("name", name);
+    commentsEntity.setProperty("comment", comment);
+    commentsEntity.setProperty("timestamp", timestamp);
+
+    datastore.put(commentsEntity);
+
+    response.setContentType("application/json");
     response.getWriter().println(body);
   }
 
-  private static String convertArrayToJson(String[] comments) {
-    JsonArrayBuilder jsonComments = Json.createArrayBuilder();
-    for (int index = 0; index < comments.length; index++) {
-      jsonComments.add(Json.createObjectBuilder().add("comment", comments[index]).build());
+  private static String fetchAllCommentsJson(DatastoreService datastore) {
+    JsonObject results = new JsonObject();
+    JsonArray comments = new JsonArray();
+    Query query = new Query("Comments").addSort("timestamp", SortDirection.DESCENDING);
+    PreparedQuery preparedQuery = datastore.prepare(query);
+
+    for (Entity entity : preparedQuery.asIterable()) {
+      String name = (String) entity.getProperty("name");
+      String comment = (String) entity.getProperty("comment");
+      JsonObject commentObject = new JsonObject();
+      commentObject.addProperty("name", name);
+      commentObject.addProperty("comment", comment);
+      comments.add(commentObject);
     }
-    JsonObject json = Json.createObjectBuilder().add("comments", jsonComments.build()).build();
-    return json.toString();
+    results.add("comments", comments);
+
+    return results.toString();
   }
 }

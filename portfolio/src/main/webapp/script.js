@@ -1,55 +1,66 @@
 // Copyright 2019 Google LLC
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
+// Licensed under the Apache License, Version 2.0 (the 'License');
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 //     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
+// distributed under the License is distributed on an 'AS IS' BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-$(document).ready(function () {
-  $("a").click(function () {
-    animateScrollTop($(this).attr("href").substr(1));
+$(document).ready(function() {
+  getComments();
+
+  $('a').click(function() {
+    animateScrollTop($(this).attr('href').substr(1));
   });
 
-  $(".contact-form").submit(function (event) {
+  $('.contact-form').submit(function(event) {
     event.preventDefault();
-    const name = $(".form-name").val();
-    const comment = $(".form-comment").val();
+    const name = $('.form-name').val();
+    const comment = $('.form-comment').val();
     postComment(comment, name);
   });
 });
 
 const animateScrollTop = (targetClass) => {
-  $("html").animate(
-    {
-      scrollTop: $("." + targetClass).offset().top,
+  $('html').animate({
+      scrollTop: $('.' + targetClass).offset().top,
     },
     2000
   );
 };
 
-async function postComment(comment, name) {
-  const data = { name: name, comment: comment };
-  const response = await fetch("/data", {
-    method: "POST",
-    body: JSON.stringify(data),
-  });
-  const jsonComments = await response.text();
-  const comments = JSON.parse(jsonComments);
-  const commentNode = createNode("p", comments.comment);
-  document.getElementById("comments-container").appendChild(commentNode);
-  const nameNode = createNode("p", comments.name);
-  document.getElementById("comments-container").appendChild(nameNode);
+function addCommentToDOM(selector, comment) {
+  $(selector).append(`<p>${comment.comment}</p>`);
+  $(selector).append(`<p>${comment.name}</p>`);
 }
 
-function createNode(tag, text) {
-  const node = document.createElement(tag);
-  const textnode = document.createTextNode(text);
-  node.appendChild(textnode);
-  return node;
+async function getComments() {
+  const response = await fetch('/data', {
+    method: 'GET',
+  });
+
+  const jsonResponse = await response.text();
+  const jsonComments = JSON.parse(jsonResponse);
+  const comments = jsonComments.comments;
+  for (const comment of comments) {
+    addCommentToDOM('#comments-container', comment);
+  }
+}
+
+async function postComment(comment, name) {
+  const data = {
+    name,
+    comment,
+  };
+  const response = await fetch('/data', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+  $('#comments-container').append(`<p>${comment}</p>`);
+  $('#comments-container').append(`<p>${name}</p>`);
 }
