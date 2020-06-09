@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-$(document).ready(() =>  {
+$(document).ready(() => {
   getComments();
 
   $('#deleter').click((event) => {
@@ -46,8 +46,27 @@ $(document).ready(() =>  {
     });
   });
 
-  $('#image-upload-form').on('load',fetchBlobstoreUrlAndShowForm());
+  $('#image-upload-form').on('load', fetchBlobstoreUrlAndShowForm());
+  $('#image-upload-form').submit((event) => {
+    event.preventDefault();
+    const action = $("#image-upload-form").attr('action');
+    $.ajax({
+      type: 'POST',
+      url: action,
+      cache: false,
+      data : new FormData($("#image-upload-form")[0]),
+      processData : false,
+      contentType : false,
+      success: (data) => {
+        addImageToImagesContainer(data);
+      }
+    });
+  });
 });
+
+function addImageToImagesContainer(data) {
+  $('#images-container').append(`<img src=${data.imageUrl}><img>`);
+}
 
 function deleteComments(event) {
   event.preventDefault();
@@ -56,19 +75,20 @@ function deleteComments(event) {
     type: 'POST',
     success: (response) => {
       $('.comments-section').empty();
-  }
-});
+    }
+  });
+}
 
 function fetchBlobstoreUrlAndShowForm() {
   fetch('/blobstore-upload-url')
-  .then((response) => {
-    return response.text();
-  })
-  .then((imageUploadUrl) => {
-    const messageForm = document.getElementById('image-upload-form');
-    messageForm.action = imageUploadUrl;
-    messageForm.classList.remove('hidden');
-  });
+    .then((response) => {
+      return response.text();
+    })
+    .then((imageUploadUrl) => {
+      const messageForm = document.getElementById('image-upload-form');
+      messageForm.action = imageUploadUrl;
+      messageForm.classList.remove('hidden');
+    });
 }
 
 const animateScrollTop = (targetClass) => {
