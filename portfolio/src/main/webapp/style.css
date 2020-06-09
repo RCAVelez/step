@@ -129,6 +129,27 @@ img {
   flex-direction: column;
 }
 */
+.menu-bar {
+  height: 45px;
+  width: 100%;
+  background-color: rgb(51,51,51);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.menu-content {
+  width: auto;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+.menu-item {
+  font-size: 30px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
 
 .intro {
   align-items: center;
@@ -142,6 +163,10 @@ img {
 .intro-wrapper {
   margin-left: auto;
   margin-right: auto;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .headline {
@@ -161,14 +186,6 @@ img {
   color: rgb(41, 151, 255);
   font-size:16px ;
 }
-
-/*
-.headline-sub-messages {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-*/
 
 .sub-message{
   color: rgb(105, 105, 107);
