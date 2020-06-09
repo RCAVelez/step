@@ -34,9 +34,9 @@ $(document).ready(() =>  {
     $.ajax({
       url: '/comments',
       type: 'GET',
-      data: '&num=' + $('.comments-num').val(),
-      success: function(response) {
-        const jsonComments = JSON.parse(response);
+      data: `&num=${$('.comments-num').val()}`,
+      success: (response) => {
+        const jsonComments = response;
         const comments = jsonComments.comments;
         $('.comments-section').empty();
         for (const comment of comments) {
@@ -52,7 +52,7 @@ function deleteComments(event) {
   $.ajax({
     url: '/delete-data',
     type: 'POST',
-    success: function(response) {
+    success: (response) => {
       $('.comments-section').empty();
     }
   });

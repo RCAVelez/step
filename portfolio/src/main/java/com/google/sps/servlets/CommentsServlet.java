@@ -37,16 +37,17 @@ public final class CommentsServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String numRequest = getRequestParameter(request, "num", "0"); /* defaultValue= 0*/
+    String numRequest = getRequestParameter(request, "num", /* defaultValue= */ "0");
     int num = Integer.parseInt(numRequest);
-    String json = getXNumOfComments(datastore, num);
-    response.setContentType("text/html");
+    String json = getXLimitOfComments(datastore, num);
+    response.setContentType("application/json");
     response.getWriter().println(json);
   }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {}
 
+  /** defaultValue is "0", Returns the value of the parameter */
   private String getRequestParameter(HttpServletRequest request, String name, String defaultValue) {
     String value = request.getParameter(name);
     if (value == null) {
@@ -55,7 +56,8 @@ public final class CommentsServlet extends HttpServlet {
     return value;
   }
 
-  private static String getXNumOfComments(DatastoreService datastore, int num) {
+  /** int num -1 means all values, Returns the amount of comments requested */
+  private static String getXLimitOfComments(DatastoreService datastore, int num) {
     JsonObject results = new JsonObject();
     JsonArray comments = new JsonArray();
     Query query = new Query("Comments").addSort("timestamp", SortDirection.DESCENDING);
