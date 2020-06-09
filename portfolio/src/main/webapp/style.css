@@ -151,6 +151,17 @@ img {
   margin-bottom: auto;
 }
 
+.githubLink {
+  margin-left: 10px;
+}
+
+.mail-icon {
+  margin-right: 10px;
+}
+.mail-link {
+  color: white;
+}
+
 .intro {
   align-items: center;
   background-color: rgb(0, 0, 0);
