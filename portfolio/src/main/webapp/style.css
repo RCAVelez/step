@@ -1,3 +1,4 @@
+/*
 input {
   border-bottom: solid 1px;
   border-left: none;
@@ -126,4 +127,60 @@ img {
   align-items: center;
   display: flex;
   flex-direction: column;
+}
+*/
+
+.intro {
+  align-items: center;
+  background-color: rgb(0, 0, 0);
+  display: flex;
+  height: 595px;
+  justify-content: center;
+  width: auto;
+}
+
+.intro-wrapper {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.headline {
+  color: rgb(245, 245, 247);
+  font-size: 40px;
+}
+
+
+.headline-sub {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.headline-sub .kennedy-link {
+  color: rgb(41, 151, 255);
+  font-size:16px ;
+}
+
+/*
+.headline-sub-messages {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+*/
+
+.sub-message{
+  color: rgb(105, 105, 107);
+  font-size:16px ;
+}
+
+.headline-link:hover {
+  text-decoration: none;
+}
+
+.division-bar {
+  background-color: rgb(255,255,255);
+  height: 45px;
+  width: 100%;
 }
