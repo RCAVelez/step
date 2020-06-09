@@ -11,20 +11,52 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-$(document).ready(function() {
+$(document).ready(() =>  {
   getComments();
 
-  $('a').click(function() {
+  $('#deleter').click((event) => {
+    deleteComments(event);
+  });
+
+  $('a').click(() => {
     animateScrollTop($(this).attr('href').substr(1));
   });
 
-  $('.contact-form').submit(function(event) {
+  $('.contact-form').submit((event) => {
     event.preventDefault();
     const name = $('.form-name').val();
     const comment = $('.form-comment').val();
     postComment(comment, name);
   });
+
+  $('#comments-editor').submit((event) => {
+    event.preventDefault();
+    $.ajax({
+      url: '/comments',
+      type: 'GET',
+      data: `&num=${$('.comments-num').val()}`,
+      success: (response) => {
+        const jsonComments = response;
+        const comments = jsonComments.comments;
+        $('.comments-section').empty();
+        for (const comment of comments) {
+          addCommentToDOM('.comments-section', comment);
+        }
+      }
+    });
+  });
 });
+
+function deleteComments(event) {
+  event.preventDefault();
+  $.ajax({
+    url: '/delete-data',
+    type: 'POST',
+    success: (response) => {
+      $('.comments-section').empty();
+    }
+  });
+}
 
 const animateScrollTop = (targetClass) => {
   $('html').animate({
@@ -48,7 +80,7 @@ async function getComments() {
   const jsonComments = JSON.parse(jsonResponse);
   const comments = jsonComments.comments;
   for (const comment of comments) {
-    addCommentToDOM('#comments-container', comment);
+    addCommentToDOM('.comments-section', comment);
   }
 }
 
@@ -61,6 +93,6 @@ async function postComment(comment, name) {
     method: 'POST',
     body: JSON.stringify(data),
   });
-  $('#comments-container').append(`<p>${comment}</p>`);
-  $('#comments-container').append(`<p>${name}</p>`);
+  $('.comments-section').append(`<p>${comment}</p>`);
+  $('.comments-section').append(`<p>${name}</p>`);
 }
