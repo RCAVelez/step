@@ -54,9 +54,9 @@ $(document).ready(() => {
       type: 'POST',
       url: action,
       cache: false,
-      data : new FormData($("#image-upload-form")[0]),
-      processData : false,
-      contentType : false,
+      data: new FormData($("#image-upload-form")[0]),
+      processData: false,
+      contentType: false,
       success: (data) => {
         addImageToImagesContainer(data);
       }
