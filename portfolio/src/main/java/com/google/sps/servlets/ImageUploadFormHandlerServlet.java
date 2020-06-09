@@ -24,8 +24,6 @@ import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.ServingUrlOptions;
 import com.google.gson.JsonObject;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.annotation.WebServlet;
@@ -42,6 +40,11 @@ public class ImageUploadFormHandlerServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String imageUrl = getUploadedFileUrl(request, "image");
+    if (imageUrl == "") {
+      System.err.println("ImageUrl not found");
+      return;
+    }
+
     JsonObject imageObject = new JsonObject();
     imageObject.addProperty("imageUrl", imageUrl);
     String json = imageObject.toString();
@@ -50,12 +53,19 @@ public class ImageUploadFormHandlerServlet extends HttpServlet {
     response.getWriter().println(json);
   }
 
+  /** returns url of uploaded file, returns "" if not found */
   private String getUploadedFileUrl(HttpServletRequest request, String formInputElementName) {
     Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
+
+    if (blobs.containsKey("image") == false) {
+      System.err.println("Key: image is not present");
+      return "";
+    }
     List<BlobKey> blobKeys = blobs.get("image");
 
     if (blobKeys == null || blobKeys.isEmpty()) {
-      return null;
+      System.err.println("Key/s are not present");
+      return "";
     }
 
     BlobKey blobKey = blobKeys.get(0);
@@ -63,16 +73,12 @@ public class ImageUploadFormHandlerServlet extends HttpServlet {
     BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(blobKey);
     if (blobInfo.getSize() == 0) {
       blobstoreService.delete(blobKey);
-      return null;
+      System.err.println("Loaded blob size is 0");
+      return "";
     }
 
     ServingUrlOptions options = ServingUrlOptions.Builder.withBlobKey(blobKey);
 
-    try {
-      URL url = new URL(imagesService.getServingUrl(options));
-      return url.getPath();
-    } catch (MalformedURLException e) {
-      return imagesService.getServingUrl(options);
-    }
+    return imagesService.getServingUrl(options);
   }
 }
