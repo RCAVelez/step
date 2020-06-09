@@ -91,6 +91,15 @@
       <button class="form-button" type="submit" name="button">Send</button>
     </form>
 
+    <div id="images-container">
+      <form id="image-upload-form" class="hidden" method="POST" enctype="multipart/form-data">
+        <h1>Upload an image:</h1>
+        <input type="file" name="image">
+        <br/><br/>
+        <button>Submit</button>
+      </form>
+    </div>
+
     <div id="comments-container">
       <h1 class="comments-title">Comments</h1>
       <form id="comments-editor" action="/comments" method="get">
