@@ -24,10 +24,10 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/blobstore-upload-url")
 public class BlobstoreUploadUrlServlet extends HttpServlet {
+  private final BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
     String uploadUrl = blobstoreService.createUploadUrl("/image-upload-form-handler");
 
     response.setContentType("text/html");

@@ -22,8 +22,8 @@ import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.ServingUrlOptions;
+import com.google.gson.JsonObject;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
@@ -33,22 +33,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/** Grab image uploaded to blobstore based on url, and present it */
 @WebServlet("/image-upload-form-handler")
 public class ImageUploadFormHandlerServlet extends HttpServlet {
+  private final BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+  private final ImagesService imagesService = ImagesServiceFactory.getImagesService();
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String imageUrl = getUploadedFileUrl(request, "image");
+    JsonObject imageObject = new JsonObject();
+    imageObject.addProperty("imageUrl", imageUrl);
+    String json = imageObject.toString();
 
-    PrintWriter out = response.getWriter();
-    out.println("<p>Here's the image you uploaded:</p>");
-    out.println("<a href=\"" + imageUrl + "\">");
-    out.println("<img src=\"" + imageUrl + "\" />");
-    out.println("</a>");
+    response.setContentType("application/json");
+    response.getWriter().println(json);
   }
 
   private String getUploadedFileUrl(HttpServletRequest request, String formInputElementName) {
-    BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
     Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
     List<BlobKey> blobKeys = blobs.get("image");
 
@@ -64,7 +66,6 @@ public class ImageUploadFormHandlerServlet extends HttpServlet {
       return null;
     }
 
-    ImagesService imagesService = ImagesServiceFactory.getImagesService();
     ServingUrlOptions options = ServingUrlOptions.Builder.withBlobKey(blobKey);
 
     try {
