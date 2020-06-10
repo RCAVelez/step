@@ -48,8 +48,10 @@ public final class CommentsServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {}
 
   /**
-   * Returns the value matching `name` from the request parameter. Returns defaultValue if no value
-   * is found.
+   * Helper method to retrieve a request parameter with a default value.
+   *
+   * @return The value for request parameter {@code name} if present, otherwise {@code
+   *     defaultValue}.
    */
   private String getRequestParameter(HttpServletRequest request, String name, String defaultValue) {
     String value = request.getParameter(name);

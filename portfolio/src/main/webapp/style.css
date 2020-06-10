@@ -1,8 +1,7 @@
 .footer-container {
   display: flex;
   flex-direction: column;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
   max-width: 1000px;
 }
 
@@ -11,8 +10,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
   width: 100%;
 }
 
@@ -35,9 +33,9 @@
   align-items: center;
   color: white;
   display: flex;
-  height: auto;
+
   justify-content: center;
-  width: auto;
+  
 }
 
 .menu-item {
@@ -46,7 +44,7 @@
   margin-top: auto;
 }
 
-.githubLink {
+.github-link {
   margin-left: 10px;
 }
 
@@ -56,15 +54,15 @@
 
 .mail-link {
   color: white;
+  font-size: 30px
 }
 
 .intro {
   align-items: center;
-  background-color: rgb(0, 0, 0);
+  background-color: black;
   display: flex;
   height: 595px;
   justify-content: center;
-  width: auto;
 }
 
 .intro-wrapper {
@@ -72,8 +70,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
 }
 
 .headline {
@@ -102,7 +99,7 @@
 }
 
 .division-bar {
-  background-color: rgb(255, 255, 255);
+  background-color: white;
   height: 45px;
   width: 100%;
 }
