@@ -40,9 +40,6 @@ public class ImageUploadFormHandlerServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String imageUrl = getUploadedFileUrl(request, "image");
-    if (imageUrl == "") {
-      throw new IOException("Image url not found");
-    }
 
     JsonObject imageObject = new JsonObject();
     imageObject.addProperty("imageUrl", imageUrl);
