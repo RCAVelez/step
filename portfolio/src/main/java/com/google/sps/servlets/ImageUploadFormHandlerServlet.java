@@ -41,8 +41,7 @@ public class ImageUploadFormHandlerServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String imageUrl = getUploadedFileUrl(request, "image");
     if (imageUrl == "") {
-      System.err.println("ImageUrl not found");
-      return;
+      throw new IOException("Image url not found");
     }
 
     JsonObject imageObject = new JsonObject();
@@ -54,18 +53,17 @@ public class ImageUploadFormHandlerServlet extends HttpServlet {
   }
 
   /** returns url of uploaded file, returns "" if not found */
-  private String getUploadedFileUrl(HttpServletRequest request, String formInputElementName) {
+  private String getUploadedFileUrl(HttpServletRequest request, String formInputElementName)
+      throws IOException {
     Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
 
     if (blobs.containsKey("image") == false) {
-      System.err.println("Key: image is not present");
-      return "";
+      throw new IOException("Please upload an image");
     }
     List<BlobKey> blobKeys = blobs.get("image");
 
     if (blobKeys == null || blobKeys.isEmpty()) {
-      System.err.println("Please upload an image");
-      return "";
+      throw new IOException("Please upload an image");
     }
 
     BlobKey blobKey = blobKeys.get(0);
@@ -73,8 +71,7 @@ public class ImageUploadFormHandlerServlet extends HttpServlet {
     BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(blobKey);
     if (blobInfo.getSize() == 0) {
       blobstoreService.delete(blobKey);
-      System.err.println("Loaded blob size is 0");
-      return "";
+      throw new IOException("Loaded blob size is 0");
     }
 
     ServingUrlOptions options = ServingUrlOptions.Builder.withBlobKey(blobKey);
