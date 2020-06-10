@@ -71,7 +71,7 @@ public final class CommentsServlet extends HttpServlet {
   private static String getXLimitOfComments(DatastoreService datastore, int limit) {
     JsonObject results = new JsonObject();
     JsonArray comments = new JsonArray();
-    Query query = new Query("Comments").addSort("timestamp", SortDirection.DESCENDING);
+    Query query = new Query("Comments").addSort("timestamp", SortDirection.ASCENDING);
     PreparedQuery preparedQuery = datastore.prepare(query);
     List<Entity> entities;
     if (limit == -1) {

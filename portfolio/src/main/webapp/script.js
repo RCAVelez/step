@@ -24,8 +24,8 @@ $(document).ready(() => {
 
   $('.contact-form').submit((event) => {
     event.preventDefault();
-    const name = $('.form-name').val();
-    const comment = $('.form-comment').val();
+    const name = $('.input-name').val();
+    const comment = $('.comment-area').val();
     postComment(comment, name);
   });
 
@@ -116,8 +116,8 @@ const animateScrollTop = (targetClass) => {
 };
 
 function addCommentToDOM(selector, comment) {
-  $(selector).append(`<p>${comment.comment}</p>`);
   $(selector).append(`<p>${comment.name}</p>`);
+  $(selector).append(`<p>${comment.comment}</p>`);
 }
 
 async function getComments() {
@@ -142,6 +142,6 @@ async function postComment(comment, name) {
     method: 'POST',
     body: JSON.stringify(data),
   });
-  $('.comments-section').append(`<p>${comment}</p>`);
   $('.comments-section').append(`<p>${name}</p>`);
+  $('.comments-section').append(`<p>${comment}</p>`);
 }
