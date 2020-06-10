@@ -46,6 +46,10 @@
   margin-left: 10px;
 }
 
+.github-logo {
+  filter: invert(1);
+}
+
 .mail-icon {
   margin-right: 10px;
 }
