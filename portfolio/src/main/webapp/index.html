@@ -115,21 +115,28 @@
     <div id="map"></div>
     <div class="division-bar"></div>
     <div class="division-bar"></div>
+    <div id="images-container">
+      <div class="image-presenter"></div>
+      <div class="image-uploader">
+        <div class="labels-container"></div>
+        <div class="image-form-container">
+          <form id="image-upload-form" class="hidden" method="POST" enctype="multipart/form-data">
+              <div class="custom-file">
+                <input class="file-upload" name="image" type="file" class="custom-file-input" id="customFile">
+                <label class="custom-file-label" for="customFile">Choose an Image</label>
+              </div>
+            <button class="file-upload-button btn btn-primary" type="submit">Submit</button>
+          </form>
+        </div>
+        <div class="upload-button-container"></div>
+      </div>
+    </div>
     <form action="/data" class="contact-form" method="post">
       <p>Say Hi!</p>
       <input class="form-name" type="text" name="name" placeholder="Name">
       <input class="form-comment" type="text" name="comment" placeholder="Enter Comment">
       <button class="form-button" type="submit" name="button">Send</button>
     </form>
-
-    <div id="images-container">
-      <form id="image-upload-form" class="hidden" method="POST" enctype="multipart/form-data">
-        <h1>Upload an image:</h1>
-        <input type="file" name="image">
-        <br /><br />
-        <button type="submit">Submit</button>
-      </form>
-    </div>
 
     <div id="comments-container">
       <h1 class="comments-title">Comments</h1>
@@ -146,6 +153,7 @@
       <button id="deleter" class="btn btn-primary" type="submit">Delete them Comments</button>
       <div class="comments-section"></div>
     </div>
+
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
