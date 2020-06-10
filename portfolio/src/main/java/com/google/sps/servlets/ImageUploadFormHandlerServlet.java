@@ -64,7 +64,7 @@ public class ImageUploadFormHandlerServlet extends HttpServlet {
     List<BlobKey> blobKeys = blobs.get("image");
 
     if (blobKeys == null || blobKeys.isEmpty()) {
-      System.err.println("Key/s are not present");
+      System.err.println("Please upload an image");
       return "";
     }
 
