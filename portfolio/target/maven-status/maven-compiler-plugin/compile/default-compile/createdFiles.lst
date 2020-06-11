@@ -1,0 +1,5 @@
+com/google/sps/servlets/ImageUploadFormHandlerServlet.class
+com/google/sps/servlets/BlobstoreUploadUrlServlet.class
+com/google/sps/servlets/CommentsServlet.class
+com/google/sps/servlets/DeleteServlet.class
+com/google/sps/servlets/DataServlet.class
