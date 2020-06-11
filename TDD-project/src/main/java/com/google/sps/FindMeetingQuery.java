@@ -14,6 +14,8 @@
 
 package com.google.sps;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 
 public final class FindMeetingQuery {
@@ -29,5 +31,16 @@ public final class FindMeetingQuery {
     if (request.getDuration() > TimeRange.WHOLE_DAY.end()) {
       return Arrays.asList();
     }
+
+    // eventSplitsRestriction
+    if (events.size() == 1) { // provide start time and end time of event
+      final Event event = (Event) events.toArray()[0];
+      final int start = event.getWhen().start();
+      final int end = event.getWhen().end();
+      return Arrays.asList(
+          TimeRange.fromStartEnd(TimeRange.START_OF_DAY, start, false),
+          TimeRange.fromStartEnd(end, TimeRange.END_OF_DAY, true));
+    }
+    return availableMeetingTimes;
   }
 }
