@@ -38,8 +38,8 @@
 
 .menu-item {
   font-size: 30px;
-  margin-bottom: auto;
-  margin-top: auto;
+  align-items: center;
+  margin-bottom: 0;
 }
 
 .github-link {
@@ -143,6 +143,7 @@
 .image-form-container {
   height: 100px;
   width: 300px;
+
 }
 
 #image-upload-form {
