@@ -7,81 +7,108 @@
   <link rel="stylesheet" href="style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script type="text/javascript" src="script.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfbKgFJ0-2DHo74nr1xM84CzP_lVlr3sg"></script>
   <title>Raymond's Portfolio</title>
 </head>
 
 <body>
-  <div class="header-container">
-    <a class="header-item" href="#home">Raymond C. Alvarez Velez</a>
-    <a class="header-item" href="#about-container">About</a>
-    <a class="header-item" href="#work-container">My Work</a>
-    <a class="header-item" href="#projects-container">Projects</a>
-    <a class="header-item" href="#footer-container">Contact</a>
-  </div>
-  <div class="content-container">
-    <div class="about-container">
-      <div class="image">
-        <img src="images/stanley-11.jpg" alt="">
-      </div>
-      <div class="description">
-        <p>Hi! My name is Raymond</p>
-        <p>I'm an intern at Google within the Travel Packages Team based in Cambridge, Massachusetts</p>
-        <p>My favorite things to do are exploring nature, target practice, and programming</p>
-        <p>In this portfolio you will find the work I have done!</p>
-        <p>The main CSS concepts I use here are flexbox and media queries</p>
-      </div>
+  <div class="menu-bar">
+    <div class="menu-content">
+      <a href="mailto:chve38@gmail.com" class="mail-link">
+        <i class="fa fa-envelope mail-icon"></i>
+      </a>
+      <p class="menu-item">RCAV</p>
+      <a class="menu-item github-link" href="https://github.com/RCAVelez">
+        <img src="images/Github-Mark-32px.png">
+      </a>
     </div>
-    <div class="work-container">
-      <div class="jobs-container">
-        <div class="work">
-          <div class="image">
-            <img src="images/google-logo.png" alt="">
-          </div>
-          <div class="description">
-            <p>google work experience</p>
-          </div>
-        </div>
-        <div class="work">
-          <div class="image">
-            <img src="images/pitchdeck.png" alt="">
-          </div>
-          <div class="description">
-            <p>pitchdeck work experience</p>
-          </div>
-        </div>
-        <div class="work">
-          <div class="image">
-            <img src="images/devbootcamp.png" alt="">
-          </div>
-          <div class="description">
-            <p>devbootcamp work experience</p>
-          </div>
-        </div>
-        <div class="work">
-          <div class="image">
-            <img src="images/utsa.png" alt="">
-          </div>
-          <div class="description">
-            <p>utsa work experience</p>
-          </div>
-        </div>
-      </div>
-      <div class="projects-container">
-        <div class="description">
-          <p>Auto Apply</p>
-          <p>This is a project built with the purpose of applying to a bunch of jobs really fast</p>
-        </div>
-        <div class="description">
-          <p>Hog Drone</p>
-          <p>This project was built with the purpose of reducing the $400 million dollars in annual damages hogs cause in Texas</p>
-        </div>
-        <div class="description">
-          <p>Funny Driving Detection</p>
-          <p>This project was built with the purpose of catching funny people doing funny stuff while driving</p>
-        </div>
+  </div>
+  <div class="intro">
+    <div class="intro-wrapper">
+      <h2 class="headline">Not because they are easy</h2>
+      <div class="headline-sub">
+        <a href="https://www.youtube.com/watch?v=WZyRbnpGyzQ" class="kennedy-link" aria-label="Watch Kennedy's Moonshot Speech">Watch Kennedy's Moonshot Speech</a>
       </div>
     </div>
   </div>
+  <div class="division-bar"></div>
+  <div class="intro">
+    <div class="intro-wrapper">
+      <h2 class="headline">But because they are hard</h2>
+      <div class="headline-sub">
+        <h1 class="sub-message">So I Shall</h1>
+      </div>
+    </div>
+  </div>
+  <div class="intro">
+    <div class="intro-wrapper">
+      <h2 class="headline">Work at Google</h2>
+      <div class="headline-sub">
+        <h1 class="sub-message">STEP intern summer 2020 for Travel Packages Team</h1>
+      </div>
+      <div class="headline-sub">
+        <h1 class="sub-message">Worked with fantastic minds on a capstore project</h1>
+      </div>
+      <div class="headline-sub">
+        <h1 class="sub-message">AJAX | CSS | DataStore | Git | HTML | Java | JavaScript | jQuery | Servlets</h1>
+      </div>
+    </div>
+  </div>
+  <div class="intro">
+    <div class="intro-wrapper">
+      <h2 class="headline">Build Ooply</h2>
+      <div class="headline-sub">
+        <h1 class="sub-message">One app | Four Steps | Thousands of Jobs</h1>
+      </div>
+      <div class="headline-sub">
+        <h1 class="sub-message">No more will you have to suffer through job boards</h1>
+      </div>
+      <div class="headline-sub">
+        <h1 class="sub-message">Firebase | Flask | Heroku | Python | Selenium | Swift</h1>
+      </div>
+    </div>
+  </div>
+  <div class="intro">
+    <div class="intro-wrapper">
+      <h2 class="headline">Build Ellen</h2>
+      <div class="headline-sub">
+        <h1 class="sub-message">Feral hog population control for landowners</h1>
+      </div>
+      <div class="headline-sub">
+        <h1 class="sub-message">The solution to over 400 millions dollars of annual property damages</h1>
+      </div>
+      <div class="headline-sub">
+        <h1 class="sub-message">FlytOS | GPS | NVIDIA | PX4 | RTH | Thermal | YoloV3</h1>
+      </div>
+    </div>
+  </div>
+  <div class="intro">
+    <div class="intro-wrapper">
+      <h2 class="headline">Build BirdStand</h2>
+      <div class="headline-sub">
+        <h1 class="sub-message">The way to report bad drivers, and make money</h1>
+      </div>
+      <div class="headline-sub">
+        <h1 class="sub-message">Safer Roads, Peace of Mind, Just Right</h1>
+      </div>
+      <div class="headline-sub">
+        <h1 class="sub-message">Heroku | Python | Swift | YoloV3</h1>
+      </div>
+    </div>
+  </div>
+  <div class="intro">
+    <div class="intro-wrapper">
+      <h2 class="headline">Study @UTSA</h2>
+      <div class="headline-sub">
+        <h1 class="sub-message">More like a prison sentence...</h1>
+      </div>
+      <div class="headline-sub">
+        <h1 class="sub-message">Where you pay to stay</h1>
+      </div>
+    </div>
+  </div>
+  <div class="division-bar"></div>
   </div>
   <div class="footer-container">
     <form action="/data" class="contact-form" method="post">
@@ -95,7 +122,7 @@
       <form id="image-upload-form" class="hidden" method="POST" enctype="multipart/form-data">
         <h1>Upload an image:</h1>
         <input type="file" name="image">
-        <br/><br/>
+        <br /><br />
         <button type="submit">Submit</button>
       </form>
     </div>
@@ -115,6 +142,7 @@
       <button id="deleter" class="btn btn-primary" type="submit">Delete them Comments</button>
       <div class="comments-section"></div>
     </div>
+    <div id="map"></div>
 
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

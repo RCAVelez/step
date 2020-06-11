@@ -47,7 +47,12 @@ public final class CommentsServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {}
 
-  /** defaultValue is "0", Returns the value of the parameter */
+  /**
+   * Helper method to retrieve a request parameter with a default value.
+   *
+   * @return The value for request parameter {@code name} if present, otherwise {@code
+   *     defaultValue}.
+   */
   private String getRequestParameter(HttpServletRequest request, String name, String defaultValue) {
     String value = request.getParameter(name);
     if (value == null) {
@@ -56,17 +61,23 @@ public final class CommentsServlet extends HttpServlet {
     return value;
   }
 
-  /** int num -1 means all values, Returns the amount of comments requested */
-  private static String getXLimitOfComments(DatastoreService datastore, int num) {
+  /**
+   * Returns comments from the provided Datestore in chronological order up to the specified limit.
+   *
+   * @param limit The number of comments to retrieve. Returns all comments if {@code limit} is -1 or
+   *     {@code limit} is larger than the number of comments in the datastore.
+   * @return The retrieved comments as a JSON string.
+   */
+  private static String getXLimitOfComments(DatastoreService datastore, int limit) {
     JsonObject results = new JsonObject();
     JsonArray comments = new JsonArray();
     Query query = new Query("Comments").addSort("timestamp", SortDirection.DESCENDING);
     PreparedQuery preparedQuery = datastore.prepare(query);
     List<Entity> entities;
-    if (num == -1) {
+    if (limit == -1) {
       entities = Lists.newArrayList(preparedQuery.asIterable());
     } else {
-      entities = preparedQuery.asList(FetchOptions.Builder.withLimit(num));
+      entities = preparedQuery.asList(FetchOptions.Builder.withLimit(limit));
     }
     for (Entity entity : entities) {
       String name = (String) entity.getProperty("name");

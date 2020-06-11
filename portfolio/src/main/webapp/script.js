@@ -54,15 +54,29 @@ $(document).ready(() => {
       type: 'POST',
       url: action,
       cache: false,
-      data : new FormData($("#image-upload-form")[0]),
-      processData : false,
-      contentType : false,
+      data: new FormData($("#image-upload-form")[0]),
+      processData: false,
+      contentType: false,
       success: (data) => {
         addImageToImagesContainer(data);
       }
     });
   });
+
+  $('#map').on('load', createMap());
+
 });
+
+function createMap() {
+  const map = new google.maps.Map(
+    document.getElementById('map'), {
+      center: {
+        lat: 37.422,
+        lng: -122.084
+      },
+      zoom: 16
+    });
+}
 
 function addImageToImagesContainer(data) {
   $('#images-container').append(`<img src=${data.imageUrl}><img>`);
