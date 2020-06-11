@@ -24,8 +24,8 @@ $(document).ready(() => {
 
   $('.contact-form').submit((event) => {
     event.preventDefault();
-    const name = $('.form-name').val();
-    const comment = $('.form-comment').val();
+    const name = $('.input-name').val();
+    const comment = $('.comment-area').val();
     postComment(comment, name);
   });
 
@@ -47,8 +47,10 @@ $(document).ready(() => {
   });
 
   $('#image-upload-form').on('load', fetchBlobstoreUrlAndShowForm());
+  
   $('#image-upload-form').submit((event) => {
     event.preventDefault();
+    fetchBlobstoreUrlAndShowForm()
     const action = $("#image-upload-form").attr('action');
     $.ajax({
       type: 'POST',
@@ -79,7 +81,7 @@ function createMap() {
 }
 
 function addImageToImagesContainer(data) {
-  $('#images-container').append(`<img src=${data.imageUrl}><img>`);
+  $('.image-presenter').html(`<img src=${data.imageUrl}><img>`);
 }
 
 function deleteComments(event) {
@@ -114,8 +116,8 @@ const animateScrollTop = (targetClass) => {
 };
 
 function addCommentToDOM(selector, comment) {
-  $(selector).append(`<p>${comment.comment}</p>`);
   $(selector).append(`<p>${comment.name}</p>`);
+  $(selector).append(`<p>${comment.comment}</p>`);
 }
 
 async function getComments() {
@@ -140,6 +142,6 @@ async function postComment(comment, name) {
     method: 'POST',
     body: JSON.stringify(data),
   });
-  $('.comments-section').append(`<p>${comment}</p>`);
   $('.comments-section').append(`<p>${name}</p>`);
+  $('.comments-section').append(`<p>${comment}</p>`);
 }
