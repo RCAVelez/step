@@ -28,8 +28,13 @@ public final class FindMeetingQuery {
     }
 
     // noOptionsForTooLongOfARequest
-    if (request.getDuration() > TimeRange.WHOLE_DAY.end()) {
+    if (request.getDuration() > TimeRange.WHOLE_DAY.duration()) {
       return Arrays.asList();
+    }
+
+    // noConflicts
+    if (events.size() == 0) {
+      return Arrays.asList(TimeRange.WHOLE_DAY);
     }
 
     // eventSplitsRestriction
