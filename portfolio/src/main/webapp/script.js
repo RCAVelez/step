@@ -47,6 +47,7 @@ $(document).ready(() => {
   });
 
   $('#image-upload-form').on('load', fetchBlobstoreUrlAndShowForm());
+  
   $('#image-upload-form').submit((event) => {
     event.preventDefault();
     fetchBlobstoreUrlAndShowForm()
@@ -80,8 +81,7 @@ function createMap() {
 }
 
 function addImageToImagesContainer(data) {
-  $('.image-presenter').empty();
-  $('.image-presenter').append(`<img src=${data.imageUrl}><img>`);
+  $('.image-presenter').html(`<img src=${data.imageUrl}><img>`);
 }
 
 function deleteComments(event) {

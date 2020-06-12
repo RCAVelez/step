@@ -14,12 +14,6 @@
   width: 100%;
 }
 
-.comments-container {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-}
-
 .menu-bar {
   align-items: center;
   background-color: rgb(51, 51, 51);
@@ -37,9 +31,9 @@
 }
 
 .menu-item {
+  align-items: center;
   font-size: 30px;
-  margin-bottom: auto;
-  margin-top: auto;
+  margin-bottom: 0;
 }
 
 .github-link {
