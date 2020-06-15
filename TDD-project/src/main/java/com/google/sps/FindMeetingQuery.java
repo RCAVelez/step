@@ -37,15 +37,26 @@ public final class FindMeetingQuery {
       return Arrays.asList(TimeRange.WHOLE_DAY);
     }
 
-    // eventSplitsRestriction
-    if (events.size() == 1) { // provide start time and end time of event
-      final Event event = (Event) events.toArray()[0];
-      final int start = event.getWhen().start();
-      final int end = event.getWhen().end();
-      return Arrays.asList(
-          TimeRange.fromStartEnd(TimeRange.START_OF_DAY, start, false),
-          TimeRange.fromStartEnd(end, TimeRange.END_OF_DAY, true));
+    // everyAttendeeIsConsidered and eventSplitsRestriction
+    int prevTime = TimeRange.START_OF_DAY;
+    for (Event event : events) {
+      final int eventStart = event.getWhen().start();
+      final int eventEnd = event.getWhen().end();
+      if (blockHasSufficientTime((int) request.getDuration(), eventStart, prevTime)) {
+        availableMeetingTimes.add(TimeRange.fromStartEnd(prevTime, eventStart, false));
+      }
+      prevTime = eventEnd;
     }
+    // if (blockHasSufficientTime((int) request.getDuration(), prevTime, TimeRange.END_OF_DAY)) {
+    availableMeetingTimes.add(TimeRange.fromStartEnd(prevTime, TimeRange.END_OF_DAY, true));
+    // }
     return availableMeetingTimes;
+  }
+
+  private boolean blockHasSufficientTime(int duration, int endTime, int startTime) {
+    if (endTime - startTime >= duration) {
+      return true;
+    }
+    return false;
   }
 }
