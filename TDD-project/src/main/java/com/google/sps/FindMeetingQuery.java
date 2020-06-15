@@ -40,8 +40,8 @@ public final class FindMeetingQuery {
     // everyAttendeeIsConsidered and eventSplitsRestriction
     int prevTime = TimeRange.START_OF_DAY;
     for (Event event : events) {
-      String attendeeName =
-          event.getAttendees().iterator().next(); // closest thing to grabbing first index
+      // closest thing to grabbing first index
+      final String attendeeName = event.getAttendees().iterator().next();
       if (!request.getAttendees().contains(attendeeName)) {
         continue;
       }
@@ -53,7 +53,7 @@ public final class FindMeetingQuery {
       prevTime = eventEnd;
     }
     // if (blockHasSufficientTime((int) request.getDuration(), prevTime, TimeRange.END_OF_DAY)) {
-    if (prevTime != TimeRange.END_OF_DAY) {
+    if (prevTime != TimeRange.END_OF_DAY + 1) {
       availableMeetingTimes.add(TimeRange.fromStartEnd(prevTime, TimeRange.END_OF_DAY, true));
     }
     // }
