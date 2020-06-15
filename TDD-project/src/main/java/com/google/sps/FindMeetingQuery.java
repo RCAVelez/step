@@ -47,16 +47,18 @@ public final class FindMeetingQuery {
       }
       final int eventStart = event.getWhen().start();
       final int eventEnd = event.getWhen().end();
+      if (prevTime > eventStart) {
+        continue;
+      }
+
       if (blockHasSufficientTime((int) request.getDuration(), eventStart, prevTime)) {
         availableMeetingTimes.add(TimeRange.fromStartEnd(prevTime, eventStart, false));
       }
       prevTime = eventEnd;
     }
-    // if (blockHasSufficientTime((int) request.getDuration(), prevTime, TimeRange.END_OF_DAY)) {
     if (prevTime != TimeRange.END_OF_DAY + 1) {
       availableMeetingTimes.add(TimeRange.fromStartEnd(prevTime, TimeRange.END_OF_DAY, true));
     }
-    // }
     return availableMeetingTimes;
   }
 
