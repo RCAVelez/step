@@ -22,25 +22,20 @@ public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     Collection<TimeRange> availableMeetingTimes = new ArrayList<TimeRange>();
 
-    // optionsForNoAttendees
     if (request.getAttendees().size() == 0) {
       return Arrays.asList(TimeRange.WHOLE_DAY);
     }
 
-    // noOptionsForTooLongOfARequest
     if (request.getDuration() > TimeRange.WHOLE_DAY.duration()) {
       return Arrays.asList();
     }
 
-    // noConflicts
     if (events.size() == 0) {
       return Arrays.asList(TimeRange.WHOLE_DAY);
     }
 
-    // everyAttendeeIsConsidered and eventSplitsRestriction
     int prevTime = TimeRange.START_OF_DAY;
     for (Event event : events) {
-      // closest thing to grabbing first index
       final String attendeeName = event.getAttendees().iterator().next();
       if (!request.getAttendees().contains(attendeeName)) {
         continue;
@@ -48,6 +43,9 @@ public final class FindMeetingQuery {
       final int eventStart = event.getWhen().start();
       final int eventEnd = event.getWhen().end();
       if (prevTime > eventStart) {
+        if (prevTime < eventEnd) {
+          prevTime = eventEnd;
+        }
         continue;
       }
 
