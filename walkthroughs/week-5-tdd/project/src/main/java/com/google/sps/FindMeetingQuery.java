@@ -17,6 +17,7 @@ package com.google.sps;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Set;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
@@ -35,11 +36,12 @@ public final class FindMeetingQuery {
     }
 
     int prevTime = TimeRange.START_OF_DAY;
+
     for (Event event : events) {
-      final String attendeeName = event.getAttendees().iterator().next();
-      if (!request.getAttendees().contains(attendeeName)) {
+      if (!eventContainsAnyNamesInRequest(event.getAttendees(), request.getAttendees())) {
         continue;
       }
+
       final int eventStart = event.getWhen().start();
       final int eventEnd = event.getWhen().end();
       if (prevTime > eventStart) {
@@ -63,6 +65,16 @@ public final class FindMeetingQuery {
   private boolean blockHasSufficientTime(int duration, int endTime, int startTime) {
     if (endTime - startTime >= duration) {
       return true;
+    }
+    return false;
+  }
+
+  private boolean eventContainsAnyNamesInRequest(
+      Set<String> eventAttendees, Collection<String> requestAttendees) {
+    for (String attendee : requestAttendees) {
+      if (eventAttendees.contains(attendee)) {
+        return true;
+      }
     }
     return false;
   }
