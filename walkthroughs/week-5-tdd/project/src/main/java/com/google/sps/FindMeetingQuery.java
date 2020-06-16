@@ -38,7 +38,7 @@ public final class FindMeetingQuery {
     int prevTime = TimeRange.START_OF_DAY;
 
     for (Event event : events) {
-      if (!eventContainsAnyNamesInRequest(event.getAttendees(), request.getAttendees())) {
+      if (!eventContainsAnyNameInRequest(event.getAttendees(), request.getAttendees())) {
         continue;
       }
 
@@ -69,7 +69,7 @@ public final class FindMeetingQuery {
     return false;
   }
 
-  private boolean eventContainsAnyNamesInRequest(
+  private boolean eventContainsAnyNameInRequest(
       Set<String> eventAttendees, Collection<String> requestAttendees) {
     for (String attendee : requestAttendees) {
       if (eventAttendees.contains(attendee)) {
