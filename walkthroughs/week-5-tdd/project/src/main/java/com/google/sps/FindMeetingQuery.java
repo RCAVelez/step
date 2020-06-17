@@ -17,6 +17,7 @@ package com.google.sps;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Set;
 
 public final class FindMeetingQuery {
@@ -71,10 +72,8 @@ public final class FindMeetingQuery {
 
   private boolean eventContainsAnyNameInRequest(
       Set<String> eventAttendees, Collection<String> requestAttendees) {
-    for (String attendee : requestAttendees) {
-      if (eventAttendees.contains(attendee)) {
-        return true;
-      }
+    if (!Collections.disjoint(eventAttendees, requestAttendees)) {
+      return true;
     }
     return false;
   }
