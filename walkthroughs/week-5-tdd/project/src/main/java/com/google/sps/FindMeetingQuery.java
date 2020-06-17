@@ -14,10 +14,67 @@
 
 package com.google.sps;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Set;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    throw new UnsupportedOperationException("TODO: Implement this method.");
+    Collection<TimeRange> availableMeetingTimes = new ArrayList<TimeRange>();
+
+    if (request.getAttendees().size() == 0) {
+      return Arrays.asList(TimeRange.WHOLE_DAY);
+    }
+
+    if (request.getDuration() > TimeRange.WHOLE_DAY.duration()) {
+      return Arrays.asList();
+    }
+
+    if (events.size() == 0) {
+      return Arrays.asList(TimeRange.WHOLE_DAY);
+    }
+
+    int prevTime = TimeRange.START_OF_DAY;
+
+    for (Event event : events) {
+      if (!eventContainsAnyNameInRequest(event.getAttendees(), request.getAttendees())) {
+        continue;
+      }
+
+      final int eventStart = event.getWhen().start();
+      final int eventEnd = event.getWhen().end();
+      if (prevTime > eventStart) {
+        if (prevTime < eventEnd) {
+          prevTime = eventEnd;
+        }
+        continue;
+      }
+
+      if (blockHasSufficientTime((int) request.getDuration(), eventStart, prevTime)) {
+        availableMeetingTimes.add(TimeRange.fromStartEnd(prevTime, eventStart, false));
+      }
+      prevTime = eventEnd;
+    }
+    if (prevTime != TimeRange.END_OF_DAY + 1) {
+      availableMeetingTimes.add(TimeRange.fromStartEnd(prevTime, TimeRange.END_OF_DAY, true));
+    }
+    return availableMeetingTimes;
+  }
+
+  private boolean blockHasSufficientTime(int duration, int endTime, int startTime) {
+    if (endTime - startTime >= duration) {
+      return true;
+    }
+    return false;
+  }
+
+  private boolean eventContainsAnyNameInRequest(
+      Set<String> eventAttendees, Collection<String> requestAttendees) {
+    if (!Collections.disjoint(eventAttendees, requestAttendees)) {
+      return true;
+    }
+    return false;
   }
 }
